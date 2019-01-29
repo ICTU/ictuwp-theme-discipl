@@ -11,7 +11,7 @@ Dit theme is een aanpassing van een bestaand theme op basis van het Genesis-fram
 * ..
 
 ## Current version:
-0.0.1 - readme toegevoegd en bronbestanden van Author Pro theme.
+0.0.1 - readme toegevoegd en bronbestanden van ICTU Theme discipl.org (2019) theme.
 
 ## Version history
-* 0.0.1 - readme toegevoegd en bronbestanden van Author Pro theme.
+* 0.0.1 - readme toegevoegd en bronbestanden van ICTU Theme discipl.org (2019) theme.
