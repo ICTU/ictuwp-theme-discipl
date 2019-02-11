@@ -37,6 +37,69 @@
 		"oAP": "/functions.php",
 		"oF": 0
 		},
+	"/images/discipl-logo-darkblue.png": {
+		"ft": 32768,
+		"iS": 373807,
+		"oA": 0,
+		"oAP": "/images/discipl-logo-darkblue.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/discipl-logo-darkblue.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/discipl-logo-darkblue.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/discipl-logo-lightblue.png": {
+		"ft": 32768,
+		"iS": 373618,
+		"oA": 0,
+		"oAP": "/images/discipl-logo-lightblue.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/discipl-logo-lightblue.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/discipl-logo-lightblue.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/discipl-logo-violet.png": {
+		"ft": 32768,
+		"iS": 373510,
+		"oA": 0,
+		"oAP": "/images/discipl-logo-violet.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/discipl-logo-violet.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/discipl-logo-violet.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
 	"/images/discipl-logo.png": {
 		"ft": 32768,
 		"iS": 135635,
@@ -53,6 +116,130 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "/images/favicon.ico",
+		"oF": 0
+		},
+	"/images/fucking-uitlijning-backup.png": {
+		"ft": 32768,
+		"iS": 351751,
+		"oA": 1,
+		"oAP": "/images/fucking-uitlijning-backup.png",
+		"oF": 1,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/fucking-uitlijning-rtl.png": {
+		"ft": 32768,
+		"iS": 370605,
+		"oA": 1,
+		"oAP": "/images/fucking-uitlijning-rtl.png",
+		"oF": 1,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/fucking-uitlijning.png": {
+		"ft": 32768,
+		"iS": 351503,
+		"oA": 1,
+		"oAP": "/images/fucking-uitlijning.png",
+		"oF": 1,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-github.png": {
+		"ft": 32768,
+		"iS": 3479,
+		"oA": 0,
+		"oAP": "/images/icon-github.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-github.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-github.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/icon-linkedin.png": {
+		"ft": 32768,
+		"iS": 1793,
+		"oA": 0,
+		"oAP": "/images/icon-linkedin.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-linkedin.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-linkedin.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/icon-twitter.png": {
+		"ft": 32768,
+		"iS": 2150,
+		"oA": 0,
+		"oAP": "/images/icon-twitter.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-twitter.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-twitter.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/icon-website.png": {
+		"ft": 32768,
+		"iS": 3027,
+		"oA": 0,
+		"oAP": "/images/icon-website.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-website.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-website.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/includes/acf-posttypes-and-taxonomy-definitions.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "/includes/acf-posttypes-and-taxonomy-definitions.php",
 		"oF": 0
 		},
 	"/js/global.js": {
@@ -126,6 +313,40 @@
 		"oAP": "/languages/discipl-2019.pot",
 		"oF": 0
 		},
+	"/less/01-colors.less": {
+		"aP": 0,
+		"bl": 0,
+		"eJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 1,
+		"mS": 0,
+		"oA": 1,
+		"oAP": "/css/01-colors.css",
+		"oF": 0,
+		"oS": 0,
+		"rwU": 0,
+		"sI": 0,
+		"sU": 0
+		},
+	"/less/02-mixins.less": {
+		"aP": 0,
+		"bl": 0,
+		"eJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 1,
+		"mS": 0,
+		"oA": 1,
+		"oAP": "/css/02-mixins.css",
+		"oF": 0,
+		"oS": 0,
+		"rwU": 0,
+		"sI": 0,
+		"sU": 0
+		},
 	"/less/style.less": {
 		"aP": 1,
 		"bl": 1,
@@ -169,57 +390,6 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "/lib/theme-defaults.php",
-		"oF": 0
-		},
-	"/lib/woocommerce/author-woocommerce.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/author-woocommerce-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"/lib/woocommerce/js/min/notice-update-min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/js/min/min/notice-update-min-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"/lib/woocommerce/js/notice-update.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/js/min/notice-update-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"/lib/woocommerce/woocommerce-notice.php": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/woocommerce-notice.php",
-		"oF": 0
-		},
-	"/lib/woocommerce/woocommerce-output.php": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/woocommerce-output.php",
-		"oF": 0
-		},
-	"/lib/woocommerce/woocommerce-setup.php": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "/lib/woocommerce/woocommerce-setup.php",
 		"oF": 0
 		},
 	"/LICENSE": {

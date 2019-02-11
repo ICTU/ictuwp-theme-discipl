@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="300px" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>discipl-logo-lightblue</title>
+    <desc>Created with Sketch.</desc>
+    <g id="discipl-logo-lightblue" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <ellipse id="Oval" fill="#69DEFE" cx="107.5" cy="106" rx="75.5" ry="67"></ellipse>
+        <g id="discipl-logo" stroke="#FFFFFF" stroke-width="6">
+            <circle id="Oval" cx="64" cy="101" r="50"></circle>
+            <circle id="Oval" cx="107" cy="78" r="50"></circle>
+            <circle id="Oval" cx="151" cy="54" r="50"></circle>
+            <circle id="Oval" cx="64" cy="152" r="50"></circle>
+            <circle id="Oval" cx="235" cy="152" r="50"></circle>
+            <circle id="Oval" cx="193" cy="78" r="50"></circle>
+            <circle id="Oval" cx="106" cy="224" r="50"></circle>
+            <circle id="Oval" cx="149" cy="247" r="50"></circle>
+            <circle id="Oval" cx="192" cy="224" r="50"></circle>
+            <circle id="Oval" cx="236" cy="200" r="50"></circle>
+            <circle id="Oval" cx="145" cy="148" r="50"></circle>
+            <circle id="Oval" cx="106" cy="175" r="50"></circle>
+            <circle id="Oval" cx="64" cy="199" r="50"></circle>
+            <circle id="Oval" cx="188" cy="125" r="50"></circle>
+            <circle id="Oval" cx="232" cy="101" r="50"></circle>
+        </g>
+    </g>
+</svg>
