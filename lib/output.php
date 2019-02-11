@@ -30,9 +30,6 @@ function author_css() {
 
 	$css .= ( author_customizer_get_default_header_color() !== $header_color ) ? sprintf( '
 
-		.site-header {
-			background-color: %1$s;
-		}
 
 		.genesis-nav-menu a,
 		.genesis-nav-menu > .current-menu-item > a,
@@ -48,7 +45,7 @@ function author_css() {
 		.nav-primary:hover .genesis-nav-menu > li > a {
 			color: %3$s;
 		}
-		', $header_color, author_color_contrast( $header_color ), author_change_brightness( $header_color ) ) : '';
+		', author_color_contrast( $header_color ), author_change_brightness( $header_color ) ) : '';
 
 
 	$css .= ( author_customizer_get_default_light_color() !== $light_color ) ? sprintf( '

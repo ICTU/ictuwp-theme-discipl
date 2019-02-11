@@ -11,6 +11,7 @@
  */
 
 add_action( 'customize_register', 'author_customizer_register' );
+
 /**
  * Register settings and controls with the Customizer.
  *

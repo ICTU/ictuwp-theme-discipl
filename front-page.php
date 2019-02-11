@@ -1,14 +1,21 @@
 <?php
+
 /**
- * discipl.org WP theme (2019).
- *
- * This file adds the front page to the ICTU Theme discipl.org (2019) theme.
- *
- * @package discipl-2019
- * @author  StudioPress / Paul van Buuren
- * @license GPL-2.0+
- * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
+// * discipl.org WP theme (2019) - front-page.php
+// * ----------------------------------------------------------------------------------
+// * This file adds the front page to the ICTU Theme discipl.org (2019) theme.
+// * ----------------------------------------------------------------------------------
+// * @author  StudioPress / Paul van Buuren
+// * @license GPL-2.0+
+// * @package discipl-2019
+// * @version 0.1.1
+// * @desc.   Webfonts toegevoegd; portfolio en teammembers als CPT toegevoegd; homepage totaal onder handen genomen.
+// * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
+
+
+
+//========================================================================================================
 
 add_action( 'genesis_meta', 'author_front_page_genesis_meta' );
 /**
@@ -16,6 +23,7 @@ add_action( 'genesis_meta', 'author_front_page_genesis_meta' );
  *
  * @since 1.0.0
  */
+
 function author_front_page_genesis_meta() {
 
 	if ( is_active_sidebar( 'front-page-1' ) || is_active_sidebar( 'front-page-2' ) || is_active_sidebar( 'front-page-3' ) || is_active_sidebar( 'front-page-4' ) || is_active_sidebar( 'front-page-5' ) ) {
@@ -42,6 +50,8 @@ function author_front_page_genesis_meta() {
 
 }
 
+//========================================================================================================
+
 // Define front-page body class.
 function author_body_class( $classes ) {
 
@@ -50,6 +60,8 @@ function author_body_class( $classes ) {
 	return $classes;
 
 }
+
+//========================================================================================================
 
 // Add markup for front page widgets.
 function author_front_page_1_widget() {
@@ -60,6 +72,8 @@ function author_front_page_1_widget() {
 	) );
 
 }
+
+//========================================================================================================
 
 function author_front_page_widgets() {
 
@@ -84,6 +98,8 @@ function author_front_page_widgets() {
 	) );
 
 }
+
+//========================================================================================================
 
 // Run the Genesis loop.
 genesis();
