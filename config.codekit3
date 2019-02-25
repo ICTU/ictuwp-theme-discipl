@@ -16,6 +16,13 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
+	"/archive.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "/archive.php",
+		"oF": 0
+		},
 	"/distribute.sh": {
 		"cB": 0,
 		"ft": 8192,
@@ -39,7 +46,7 @@
 		},
 	"/images/discipl-logo-darkblue.png": {
 		"ft": 32768,
-		"iS": 373807,
+		"iS": 65359,
 		"oA": 0,
 		"oAP": "/images/discipl-logo-darkblue.png",
 		"oF": 0,
@@ -81,7 +88,7 @@
 		},
 	"/images/discipl-logo-violet.png": {
 		"ft": 32768,
-		"iS": 373510,
+		"iS": 64948,
 		"oA": 0,
 		"oAP": "/images/discipl-logo-violet.png",
 		"oF": 0,
@@ -110,6 +117,48 @@
 		"opt": 0,
 		"oT": 1,
 		"q": 100
+		},
+	"/images/discpl-logo-bg-01.png": {
+		"ft": 32768,
+		"iS": 310648,
+		"oA": 0,
+		"oAP": "/images/discpl-logo-bg-01.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/discpl-logo-bg-01.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/discpl-logo-bg-01.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/discpl-logo-bg-02.png": {
+		"ft": 32768,
+		"iS": 346108,
+		"oA": 0,
+		"oAP": "/images/discpl-logo-bg-02.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/discpl-logo-bg-02.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/discpl-logo-bg-02.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"/images/favicon.ico": {
 		"cB": 0,
@@ -150,6 +199,48 @@
 		"opt": 1,
 		"oT": 1,
 		"q": 100
+		},
+	"/images/icon-arrow-right-open.png": {
+		"ft": 32768,
+		"iS": 809,
+		"oA": 0,
+		"oAP": "/images/icon-arrow-right-open.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-arrow-right-open.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-arrow-right-open.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/icon-arrow-right.png": {
+		"ft": 32768,
+		"iS": 1843,
+		"oA": 0,
+		"oAP": "/images/icon-arrow-right.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/icon-arrow-right.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/icon-arrow-right.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"/images/icon-github.png": {
 		"ft": 32768,
@@ -230,6 +321,48 @@
 		"miP": 0,
 		"oA": 2,
 		"oAP": "/images/icon-website.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/ictu-logo.png": {
+		"ft": 32768,
+		"iS": 9069,
+		"oA": 0,
+		"oAP": "/images/ictu-logo.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/ictu-logo.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/ictu-logo.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"/images/logo-discipl.png": {
+		"ft": 32768,
+		"iS": 113592,
+		"oA": 0,
+		"oAP": "/images/logo-discipl.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"/images/logo-discipl.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "/images/logo-discipl.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
@@ -399,6 +532,13 @@
 		"oAP": "/LICENSE",
 		"oF": 0
 		},
+	"/page.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "/page.php",
+		"oF": 0
+		},
 	"/page_landing.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -444,8 +584,8 @@
 		"oA": 0,
 		"oAP": "/screenshot.png",
 		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
