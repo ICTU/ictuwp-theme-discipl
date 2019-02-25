@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 0.1.1
-// * @desc.   Webfonts toegevoegd; portfolio en teammembers als CPT toegevoegd; homepage totaal onder handen genomen.
+// * @version 1.0.1
+// * @desc.   Eerste accept-versie.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -44,24 +44,31 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '0.1.1' );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
+define( 'CHILD_THEME_VERSION', '1.0.1' );
+define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
 $sharedfolder = preg_replace('|genesis|i','discipl-2019',$sharedfolder);
-define( 'RHSWP_FOLDER',                      $sharedfolder );
+define( 'RHSWP_FOLDER', $sharedfolder );
 
 $siteURL      =  get_stylesheet_directory_uri();
 $siteURL      =  preg_replace('|https://|i', '//', $siteURL );
 $siteURL      =  preg_replace('|http://|i', '//', $siteURL );
 define( 'RHSWP_THEMEFOLDER',                 $siteURL );
 
-if ( ! defined( 'DISCIPL_CPT_PORTFOLIO' ) ) {
-  define( 'DISCIPL_CPT_PORTFOLIO',               'portfolio' );  // slug for custom taxonomy 'dossier'
+if ( ! defined( 'DISCIPL_CPT_PROJECTEN' ) ) {
+  define( 'DISCIPL_CPT_PROJECTEN', 'projecten' );  // slug for custom taxonomy 'dossier'
 }
 
 if ( ! defined( 'DISCIPL_CPT_TEAM' ) ) {
-  define( 'DISCIPL_CPT_TEAM',               'team' );  // slug for custom taxonomy 'dossier'
+  define( 'DISCIPL_CPT_TEAM', 'teamleden' );  // slug for custom taxonomy 'dossier'
+}
+
+// de site is nu (feb 2019) bedoeld als one-pager.
+// bij meer budget gaan we doorkliks vanaf de homepage mogelijk maken
+if ( ! defined( 'DISCIPL_IS_ONEPAGER' ) ) {
+  define( 'DISCIPL_IS_ONEPAGER', false );  // dus doorkliks zijn oke!
+//  define( 'DISCIPL_IS_ONEPAGER', true );  // dus doorkliks = nono
 }
 
 // Include for Advanced Custom Fields and Custom Post Type definitions
@@ -74,7 +81,6 @@ add_action( 'wp_enqueue_scripts', 'discipl_enqueue_scripts_styles' );
 
 function discipl_enqueue_scripts_styles() {
 
-	wp_enqueue_style( 'dashicons' );
 	wp_enqueue_style( 'typekit-fonts', '//use.typekit.net/pwt2qnk.css', array(), CHILD_THEME_VERSION );
 
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -90,16 +96,16 @@ function discipl_enqueue_scripts_styles() {
 
 }
 
+//========================================================================================================
+
 // Define the responsive menu settings.
 function discipl_responsive_menu_settings() {
 
 	$settings = array(
 		'mainMenu'    => __( 'Menu', 'discipl' ),
-		'subMenu'     => __( 'Submenu', 'discipl' ),
 		'menuClasses' => array(
 			'combine' => array(
 				'.nav-primary',
-				'.nav-secondary',
 			),
 		),
 	);
@@ -114,6 +120,8 @@ function discipl_responsive_menu_settings() {
 add_image_size( 'featured-content', 800, 800, TRUE );
 add_image_size( 'fotoblok', 660, 460, TRUE );
 add_image_size( 'pasfoto', 500, 500, TRUE );
+add_image_size( 'projectfoto', 350, 240, true );
+
 
 // Add HTML5 markup structure.
 add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
@@ -203,7 +211,6 @@ remove_action( 'genesis_after_header', 'genesis_do_nav' );
 remove_action( 'genesis_after_header', 'genesis_do_subnav' );
 
 add_action( 'genesis_header', 'genesis_do_nav', 12 );
-add_action( 'genesis_before_content_sidebar_wrap', 'genesis_do_subnav' );
 
 //========================================================================================================
 
@@ -306,7 +313,67 @@ function discipl_get_url_and_label( $string = '',  $wraptag = '',  $wraptagclass
 
 //========================================================================================================
 
+add_action( 'genesis_entry_content', 'discipl_frontend_add_contentwrapper_open', 9 );
+add_action( 'genesis_entry_content', 'discipl_frontend_add_contentwrapper_close', 11 );
+
+function discipl_frontend_add_contentwrapper_open() {
+  
+  if ( 'page'    == get_post_type() ) {
+    echo '<div class="content-center">';
+  }
+  
+}
+
+function discipl_frontend_add_contentwrapper_close() {
+  
+  if ( 'page'    == get_post_type() ) {
+    echo '</div>'; // class="content-center">';
+  }
+  
+}
+
+
+//========================================================================================================
+
+add_action( 'genesis_before_footer', 'discipl_frontend_add_footerwrapper_open', 9 );
+add_action( 'genesis_after_footer', 'discipl_frontend_add_footerwrapper_close', 11 );
+
+function discipl_frontend_add_footerwrapper_open() {
+  
+  if ( 'page'    == get_post_type() ) {
+    echo '<div class="footer-wrapper">';
+  }
+  
+}
+
+function discipl_frontend_add_footerwrapper_close() {
+  
+  if ( 'page'    == get_post_type() ) {
+    echo '</div>'; // class="content-center">';
+  }
+  
+}
+
+
+//========================================================================================================
+
+function discipl_frontend_add_flexwrapper_open() {
+
+  echo '<div class="flex">';
+  
+}
+
+function discipl_frontend_add_flexwrapper_close() {
+
+  echo '</div>'; // class="flex">';
+  
+}
+
+//========================================================================================================
+
+
 add_action( 'genesis_entry_content', 'discipl_frontend_add_page_content', 12 );
+
 
 // HTML output voor de verschillende blokken
 
@@ -330,7 +397,7 @@ function discipl_frontend_add_page_content() {
         // - tekst_foto : Tekst met foto
         // - driekoloms : Driekoloms tekst
         // - teamblock : Block met team-info
-        // - porfolioblock : Portfolio-items
+        // - porfolioblock : Projecten
 
 				$type_block             = get_sub_field('soort_blok');
 				$section_title          = get_sub_field('fotoblock_title');
@@ -342,15 +409,11 @@ function discipl_frontend_add_page_content() {
           $size                   = 'fotoblok';
           
   				$fotoblock_text         = get_sub_field('fotoblock_text');
-  				$fotoblock_quote        = get_sub_field('fotoblock_quote');
   				$image                  = get_sub_field('fotoblock_image');
   				$fotoblock_bgcolor      = get_sub_field('fotoblock_bgcolor');
   				$fotoblock_alignment    = get_sub_field('fotoblock_alignment');
   				$fotoblock_logovariant  = get_sub_field('fotoblock_logovariant');
 
-          if ( ! $fotoblock_quote ) {
-            $fotoblock_quote = '&nbsp;';
-          }
 
           echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
           echo '<div class="wrap">';
@@ -362,27 +425,29 @@ function discipl_frontend_add_page_content() {
             if ( $image ) {
               echo wp_get_attachment_image( $image['ID'], $size );
             }
-            echo '<p class="quote ' . $fotoblock_logovariant . '">' . sanitize_textarea_field( $fotoblock_quote ) . '</p>';
             echo '</div>'; // .quote-photo
             
             echo '<div class="title-text">';
+            echo '<div class="flex-text">';
             echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
             echo sanitize_textarea_field( $fotoblock_text );
+            echo '</div>'; // .flex-text
             echo '</div>'; // .title-text
             
           }
           else {
             // foto aan de rechterkant, tekst links
             echo '<div class="title-text">';
+            echo '<div class="flex-text">';
             echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
             echo sanitize_textarea_field( $fotoblock_text );
+            echo '</div>'; // .flex-text
             echo '</div>'; // .title-text
 
             echo '<div class="quote-photo">';
             if ( $image ) {
               echo wp_get_attachment_image( $image['ID'], $size );
             }
-            echo '<p class="quote ' . $fotoblock_logovariant . '">' . sanitize_textarea_field( $fotoblock_quote ) . '</p>';
             echo '</div>'; // .quote-photo
             
           }
@@ -427,7 +492,7 @@ function discipl_frontend_add_page_content() {
 
               echo '<section aria-labelledby="' . $title_id . '">';
               if ( $section_logo ) {
-                echo '<img src="' . RHSWP_THEMEFOLDER . '/images/' . $section_logo . '" alt="" height="120" width="120" >';
+                echo '<img src="' . RHSWP_THEMEFOLDER . '/images/' . $section_logo . '" alt="" height="120" width="120" class="section-logo" >';
               }
               echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
               echo '<p> ' . $section_text . '</p>';
@@ -470,13 +535,24 @@ function discipl_frontend_add_page_content() {
 
               echo '<section aria-labelledby="' . $title_id . '">';
 
-              echo get_the_post_thumbnail( $p->ID, 'pasfoto' );
 
+              if ( ! DISCIPL_IS_ONEPAGER ) {
+                
+                // het is geen one-pager, dus we mogen doorverwijzen naar het item
+                echo '<a href="' . get_permalink( $p->ID ) . '">';
+              }
+
+              echo get_the_post_thumbnail( $p->ID, 'pasfoto' );
               echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
+
+              if ( ! DISCIPL_IS_ONEPAGER ) {
+                echo '</a>';
+              }
+
               echo '<p> ' . $section_text . '</p>';
               if ( $website || $github || $linkedin || $twitter) {
 
-                $label = sprintf( __( 'Links en social media van %s', 'wp-rijkshuisstijl' ), $section_title ); 
+                $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
                 echo '<ul aria-label="' . $label . '" class="social-media">';
                 echo discipl_get_url_and_label( $website, 'li', 'website' );
                 echo discipl_get_url_and_label( $github, 'li', 'github' );
@@ -499,7 +575,7 @@ function discipl_frontend_add_page_content() {
         }
         elseif ( 'porfolioblock' == $type_block ) {
 
-  				$section_text         = get_sub_field('teaminfo_text');
+  				$section_text         = get_sub_field('portfolio_description');
           $posts                = get_sub_field('portfolio_items');
 
           echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
@@ -512,20 +588,25 @@ function discipl_frontend_add_page_content() {
             echo '<div class="flex">';
 
             foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT);
-
+              
+              setup_postdata( $p );
+              
               $sectioncounter++; // om sowieso een unieke ID te kunnen maken
       				$section_title        = get_the_title( $p->ID );
-      				$section_description  = '';
+      				$section_description  = get_the_excerpt( $p->ID );
 
-      				if ( get_the_excerpt( $p->ID ) ) {
-        				$section_description  = get_the_excerpt( $p->ID );
-      				}
               $title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
 
               echo '<section aria-labelledby="' . $title_id . '">';
-              echo get_the_post_thumbnail( $p->ID, 'pasfoto' );
+              echo get_the_post_thumbnail( $p->ID, 'projectfoto' );
               echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
               echo '<p>' . $section_description . '</p>';
+              if ( ! DISCIPL_IS_ONEPAGER ) {
+                
+                // het is geen one-pager, dus we mogen doorverwijzen naar het item
+                echo '<p class="read-more"><a href="' . get_permalink( $p->ID ) . '">' .  sprintf( __( 'Meer over %s', 'discipl' ), $section_title ) . '</a></p>';
+                
+              }
               echo '</section>';
 
             endforeach;
@@ -555,7 +636,7 @@ function discipl_frontend_add_page_content() {
 function discipl_acf_check( $fn ) {
 
   
-  $theline = __( 'ACF plugin is niet actief (' . $fn . ') ', 'wp-rijkshuisstijl' );
+  $theline = __( 'ACF plugin is niet actief (' . $fn . ') ', 'discipl' );
   error_log( $theline );
   if ( ! is_admin() ) {
     if ( WP_DEBUG ) {
@@ -634,6 +715,211 @@ if (! function_exists( 'dovardump' ) ) {
   }        
 }        
   
+//========================================================================================================
+
+//* Change the footer text
+add_filter('genesis_footer_creds_text', 'discipl_frontend_add_footer_text');
+
+function discipl_frontend_add_footer_text( $creds ) {
+  
+	$discipl_footer_payoff    = get_field('discipl_footer_payoff', 'option');
+  
+  if ( $discipl_footer_payoff ) {
+    $creds = $discipl_footer_payoff;
+  }
+  else {
+  	$creds = '<img src="' . RHSWP_THEMEFOLDER . '/images/ictu-logo.svg" alt="ICTU Logo"> &copy; 2019 - Discipl is een initiatief van ICTU.';
+  }
+
+	return $creds;
+
+}
   
 //========================================================================================================
+
+// Customize the post info function
+add_filter( 'genesis_entry_content', 'discipl_frontend_add_post_content' );
+
+function discipl_frontend_add_post_content( ) {
+
+	$post_info = '';
+
+  if ( is_single() && DISCIPL_CPT_TEAM == get_post_type() ) {
+
+    echo get_the_post_thumbnail( get_the_id(), 'projectfoto' );
+    echo get_the_excerpt();
+
+		$website              = get_field( 'teammember_website_url', get_the_id() );
+		$github               = get_field( 'teammember_github_url', get_the_id() );
+		$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
+		$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
+		$section_title        = get_the_title();
+
+    if ( $website || $github || $linkedin || $twitter) {
+
+      $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
+      $post_info = '<ul aria-label="' . $label . '" class="social-media">';
+      $post_info .= discipl_get_url_and_label( $website, 'li', 'website' );
+      $post_info .= discipl_get_url_and_label( $github, 'li', 'github' );
+      $post_info .= discipl_get_url_and_label( $linkedin, 'li', 'linkedin' );
+      $post_info .= discipl_get_url_and_label( $twitter, 'li', 'twitter' );
+      $post_info .= '</ul>';
+      
+      echo $post_info;
+      
+    }
+		
+  }
+
+}
+
+  
+//========================================================================================================
+
+// Customize the post info function
+add_filter( 'genesis_post_info', 'discipl_frontend_post_info_filter' );
+
+function discipl_frontend_post_info_filter($post_info) {
+
+	$post_info = '';
+
+  if ( is_single() ) {
+    if ( 'post' == get_post_type() ) {
+			$post_info = '[post_date]';
+    }
+
+  } 
+
+	return $post_info;
+
+}
+
+//========================================================================================================
+
+//* Modify breadcrumb arguments.
+add_filter( 'genesis_breadcrumb_args', 'discipl_frontend_breadcrumb_textdefaults' );
+
+function discipl_frontend_breadcrumb_textdefaults( $args ) {
+  
+  global $wp_query;
+  
+  $tax = '';
+  
+  $separator = '<span class="separator"> &gt; </span>';
+  
+  $args['home']     = 'Home';
+  $args['sep']      = $separator;
+  $args['list_sep'] = ', '; // Genesis 1.5 and later
+  $args['prefix']   = '<div class="breadcrumb">';
+  $args['suffix']   = '</div>';
+  $args['hierarchical_attachments'] = true; // Genesis 1.5 and later
+  $args['hierarchical_categories'] = true; // Genesis 1.5 and later
+  $args['display']  = true;
+  $args['labels']['prefix'] = '';
+  $args['labels']['author'] = '';
+  $args['labels']['category'] = ''; // Genesis 1.6 and later
+  $args['labels']['tag'] = __( "Label", 'wbvb-modernista-translation' );
+  $args['labels']['date'] = __( "Datum", 'wbvb-modernista-translation' );
+  $args['labels']['search'] = __( "Zoekresultaat voor van ", 'wbvb-modernista-translation' );
+  
+  
+  $args['labels']['post_type'] = '';
+  if ( (isset( $wp_query->query_vars['name'] ) ) && ( $wp_query->query_vars['name'] != '' ) ) {
+    $args['labels']['404'] = __( "Pagina bestaat niet: ", 'wbvb-modernista-translation' ) . "'" .$wp_query->query_vars['name'] . "'"; 
+  }
+  else {
+    $args['labels']['404'] = __( "Pagina niet gevonden", 'wbvb-modernista-translation' ); 
+  }
+  
+  if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
+    
+    $tax = $wp_query->query_vars['taxonomy'];
+    
+    if ( $tax == 'productsoort' ) {
+      $args['labels']['tax'] = '<a href="/productsoort/">' . __( 'Collectie', 'wbvb-modernista-translation' ) . '</a>' . $separator;
+    }
+    elseif ( $tax == 'fabrikant' ) {
+      $tax = '';
+      $args['labels']['tax'] = '<a href="/fabrikant/">' . __( 'Fabrikanten', 'wbvb-modernista-translation' ) . '</a>' . $separator;
+    }
+    else {
+//      $args['labels']['tax'] = '<a href="/' . $tax . '/">' . $tax . '</a>' . $args['sep'] ;
+      $args['labels']['tax'] = '<a href="/sitemap/">sitemap</a>' . $args['sep'] ;
+    }
+  }
+  return $args;
+}
+
+
+//========================================================================================================
+
+
+//* Customize the entry meta in the entry footer (requires HTML5 theme support)
+add_filter( 'genesis_post_meta', 'wbvb_modernista_post_meta' );
+
+function wbvb_modernista_post_meta($post_meta) {
+	global $post;
+	
+	if ( is_single() && 'post' == get_post_type() ) {
+		$post_meta = '[post_categories]
+		[post_tags] 
+		[post_author_posts_link before="' . __( "Meer artikelen van: ", 'wbvb-modernista-translation' ) . '"]';
+	}
+	else {
+		if ( is_archive() ) {
+
+			$website              = get_field( 'teammember_website_url', get_the_id() );
+			$github               = get_field( 'teammember_github_url', get_the_id() );
+			$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
+			$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
+			$section_title        = get_the_title();
+
+      if ( $website || $github || $linkedin || $twitter) {
+
+        $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
+        $post_meta = '<ul aria-label="' . $label . '" class="social-media">';
+        $post_meta .= discipl_get_url_and_label( $website, 'li', 'website' );
+        $post_meta .= discipl_get_url_and_label( $github, 'li', 'github' );
+        $post_meta .= discipl_get_url_and_label( $linkedin, 'li', 'linkedin' );
+        $post_meta .= discipl_get_url_and_label( $twitter, 'li', 'twitter' );
+        $post_meta .= '</ul>';
+      }
+  		
+		}
+		else {
+			// is het een project?
+			$post_meta = '[post_tags before="tags"]';
+		}
+	}
+	return $post_meta;
+}
+
+//========================================================================================================
+
+/** Code for custom loop */
+function discipl_frontend_loop_archive_title() {
+
+  $posttypearchivetitle = post_type_archive_title( '', false );
+  
+  if ( $posttypearchivetitle ) {
+    echo '<header><h1>' . $posttypearchivetitle . '</h1></header>';
+  }
+
+}
+
+//========================================================================================================
+
+/** Code for custom loop */
+function discipl_frontend_add_cta_button() {
+
+	$discipl_cta_meer_weten    = get_field('discipl_cta_meer_weten', 'option');
+  
+  if ( $discipl_cta_meer_weten ) {
+    echo '<div class="cta"><div class="circle-inner"><div class="circle-wrapper"><div class="circle-content">' . wpautop( $discipl_cta_meer_weten ) . '</div></div></div></div>';
+  }
+  
+}
+
+//========================================================================================================
+
 

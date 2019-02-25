@@ -1,4 +1,4 @@
-@versie: '0.1.1';
+@versie: '1.0.1';
 /*!
 	Theme Name: ICTU Theme discipl.org (2019)
 	Theme URI: https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
@@ -6,7 +6,7 @@
 	Author: StudioPress / Paul van Buuren
 	Author URI: https://wbvb.nl/
 
-	Version: 0.1.1
+	Version: 1.0.1
 
 	Tags: one-column, two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-colors, custom-menu, e-commerce, featured-images, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
 
@@ -63,8 +63,8 @@
 // @package discipl-2019
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
-// @version 0.1.1
-// @desc.   Webfonts toegevoegd; portfolio en teammembers als CPT toegevoegd; homepage totaal onder handen genomen.
+// @version 1.0.1
+// @desc.   Eerste accept-versie.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
@@ -316,6 +316,18 @@ h6 {
   .headerfont();
 	line-height: 1.2;
 	margin: 0 0 10px;
+	
+	a {
+  	color: @txt;
+  	text-decoration: none;
+  	
+  	&:hover,
+  	&:active,
+  	&:focus {
+    	text-decoration: underline;
+  	}
+	}
+	
 }
 
 h1 {
@@ -347,11 +359,6 @@ h6 {
   .home {
     h1 {
       .fontsize( 200 );
-    }
-    .entry-content p {
-      max-width: 620px;
-      margin-left: auto;
-      margin-right: auto;
     }
   }  
   h2 {
@@ -1163,6 +1170,138 @@ div .book-featured-text-banner {
 	border-bottom: 1px solid #000;
 }
 
+.archive,
+.single {
+  
+  .content {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
+  
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+    
+    article,
+    section {
+      flex: 1;
+      min-width: 50%;
+    }
+  }
+  
+}
+
+.archive {
+  #genesis-content {
+    position: relative;
+  }
+}
+
+.cta {
+  text-align: center;
+  float: right; 
+  position: relative;
+  display: block;
+  margin: 2em 0;
+
+
+  .circle-wrapper {
+    background: @donkerblauw;
+    border: 5px solid @donkerblauw;
+  }
+    
+
+  @media only screen and (max-width: @mx980px ) {
+  }
+  
+  @media only screen and (min-width: @mx980px ) {
+
+    &:after {
+      display: block;
+      padding-bottom: 100%;
+      width: 100%;
+      height: 0;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .circle-inner {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .circle-wrapper {
+      display: table;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform: translateX( -300px ) translatey( -150px );
+    }
+
+    .circle-content {
+      display: table-cell;
+      padding: 1em;
+      vertical-align: middle;
+      .fontsize( 22 );
+      line-height: 1.35;
+    }
+
+    a {
+      font-size: 80%;
+      font-weight: normal;
+      border: 5px solid @donkerblauw;
+    }
+    
+  }
+
+  p {
+    margin: 0;
+  }
+
+
+  &, *, a {
+    color: @wit;
+    font-weight: bold;
+  }
+  a {
+    display: inline-block;
+  }
+
+  &:hover {
+    .circle-wrapper {
+      background: @wit;
+      a {
+        background: @donkerblauw;
+        color: @wit;
+      }
+    }
+    &, *, a {
+      color: @txt;
+    }
+  }
+
+}
+
+.archive {
+  .cta {
+    @media only screen and (min-width: @mx980px ) {
+      .circle-inner {
+        position: inherit;
+      }
+      .circle-wrapper {
+        transform: none;
+      }
+      
+    }
+  }
+}
+
 /* Genesis eNews Extended
 --------------------------------------------- */
 
@@ -1212,9 +1351,11 @@ div .book-featured-text-banner {
 	background-color: @siteheader;
 	color: @txt;
 	min-height: 120px;
+//	min-height: 80px;
 	position: fixed;
 	width: 100%;
-	z-index: 498;
+	z-index: 500;
+
 }
 
 .site-header .wrap {
@@ -1264,15 +1405,43 @@ div .book-featured-text-banner {
 }
 
 .header-image .site-title {
-	display: block;
-	text-indent: -9999px;
+  display: block;
+  .headerfont();
+  
+  a {
+    min-height: 0;
+    line-height: 2;
+  }
 }
 
+@media only screen and (min-width: @mx800px ) {
+
+  .site-header {
+
+    .site-title a {
+      border: 1px solid transparent;
+      padding: .25em 1em;
+      margin-left: 2em;
+      &:hover,
+      &:active,
+      &:focus {
+        border-color: @txt;
+      }
+    }
+
+    .wrap {
+      margin-left: auto;
+      margin-right: auto;
+      float: none;
+    }
+  }
+}
+  
 .header-image .site-title > a {
 	background-size: contain !important;
 	display: block;
 	float: left;
-	min-height: 70px;
+	min-height: 60px;
 	width: 100%;
 }
 
@@ -1313,15 +1482,39 @@ div .book-featured-text-banner {
 	display: inline-block;
 	text-align: left;
 	
+	&.github,
+	&.twitter {
+    @media only screen and (max-width: @mx980px ) {
+      margin-left: .5em;
+      text-indent: 1.5em;
+  	}
+	}
+	
 	&.github {
-  	a {
-      .icon_socmed_icon('../images/icon-github.svg', @txt);
+    @media only screen and (max-width: @mx980px ) {
+    	a {
+        .icon_socmed_icon('../images/icon-github.svg', @wit);
+    	}
+  	}
+    @media only screen and (min-width: @mx980px ) {
+    	a {
+        .icon_socmed_icon('../images/icon-github.svg', @txt);
+    	}
   	}
 	}
 	&.twitter {
-  	a {
-      .icon_socmed_icon('../images/icon-twitter.svg', @txt);
+
+    @media only screen and (max-width: @mx980px ) {
+    	a {
+        .icon_socmed_icon('../images/icon-twitter.svg', @wit);
+    	}
   	}
+    @media only screen and (min-width: @mx980px ) {
+    	a {
+        .icon_socmed_icon('../images/icon-twitter.svg', @txt);
+    	}
+  	}
+  	
 	}
 	&.twitter,
 	&.github {
@@ -1330,7 +1523,11 @@ div .book-featured-text-banner {
     	background-size: 1.5em 1.5em;
     	background-repeat: no-repeat;
     	background-position: .5em center;
+      @media only screen and (max-width: @mx980px ) {
+//      	padding-left: 2.5em !important;
+    	}
   	}
+  	
 	}
 	
 }
@@ -1418,10 +1615,6 @@ div .book-featured-text-banner {
 	-ms-transition:     all .3s ease-in-out;
 	-o-transition:      all .3s ease-in-out;
 	transition:         all .3s ease-in-out;
-}
-
-.nav-primary:hover .genesis-nav-menu a {
-//  text-decoration: underline;
 }
 
 .nav-primary:hover .genesis-nav-menu a:focus,
@@ -1646,7 +1839,6 @@ div .book-featured-text-banner {
 --------------------------------------------- */
 
 .entry {
-//	padding: 80px;
 	position: relative;
 }
 
@@ -1686,6 +1878,27 @@ div .book-featured-text-banner {
 	color: #f9f9f9;
 }
 
+.content-center {
+
+  p {
+    margin-bottom: 0;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media only screen and (min-width: @mx980px ) {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    
+    p {
+      margin-top: 2em;  
+      margin-bottom: 2em;  
+    }
+  }
+
+}
 
 div, section {
   
@@ -1698,30 +1911,91 @@ div, section {
       padding-top: 3.2rem;  
     }
     .wrap {
-//      border: 10px solid green;
       overflow: visible;
     }
-    
+
   }
 
   &.tekst_foto {
-    .wrap {
-//      border: 10px solid green;
-    }
 
-    .title-text,
-    .quote-photo {
-    }
-    
     &.white {
       margin-top: 4rem;
       margin-bottom: 4rem;
     }
+
+    .quote-photo {
+      position: relative;
+
+      img {
+        @media only screen and (max-width: @mx980px ) {
+          margin-top: 1em;
+        }
+      }
+
+
+
+      &:before,
+      &:after {
+        background-image: url('images/discipl-logo-lightblue.svg');
+        background-size: contain;
+        display: block;
+        
+        @media only screen and (max-width: @maxwrapwidth ) {
+          width: 90px;
+          height: 90px;
+        }
+        @media only screen and (min-width: @maxwrapwidth ) {
+          width: 121px;
+          height: 121px;
+        }
+        position: absolute;
+      }
+
+      img {
+        display: block;
+      }
+      
+    }
+
+    & + .tekst_foto {
+      // tweede blok, meestal wit
+      .quote-photo {
+        &:before,
+        &:after {
+          background-image: url('images/discipl-logo-violet.svg');
+        }
+      }
+
+      & + .tekst_foto {
+        // derde blok, meestal wit
+        .quote-photo {
+          &:before,
+          &:after {
+            background-image: url('images/discipl-logo-darkblue.svg');
+          }
+        }
+      }
+      
+    }
+    
     
     &.align-left {
       .quote-photo {
-        .attachment-fotoblok {
-          float: left;
+        
+        &:before {
+          content: ' ';
+          top: 2em;
+          @media only screen and (max-width: @maxwrapwidth ) {
+            right: 1em;
+          }
+          @media only screen and (min-width: @maxwrapwidth ) {
+            right: 0;
+          }
+        }
+
+        img {
+          float: right;
+          margin-right: 60px;
         }
       }
       .title-text {
@@ -1730,6 +2004,20 @@ div, section {
     }
     &.align-right {
       .quote-photo {
+
+        &:after {
+          content: ' ';
+          top: 2em;
+
+          @media only screen and (max-width: @maxwrapwidth ) {
+            left: 1em;
+          }
+          @media only screen and (min-width: @maxwrapwidth ) {
+            left: 0;
+          }
+        }
+
+        
         .attachment-fotoblok {
           float: right;
         }
@@ -1820,7 +2108,7 @@ div, section {
       }
   
       img {
-        width: 66%;
+        max-width: 90%;
         height: auto;
       }
   
@@ -1831,27 +2119,53 @@ div, section {
       .title-text,
       .quote-photo {
         float: left;
-//        border: 1px solid red;
       }
 
   
       .title-text {
         width: @boelveelbreedte;
-//        background-color: rgba( 256, 256, 0, .5); // yellow
+        display: flex;
+        align-items: center;
+        padding-top: 2em;        
+        padding-bottom: 2em;        
+        
+        .flex-text {
+
+          h2,
+          h3 {
+            padding-top: 0;            
+            margin-top: 0;            
+          }
+
+        }
+        
       }
       .quote-photo {
-        width: ( 100% - @boelveelbreedte );
-//        background-color: rgba( 256, 0, 256, .5); // violet
+        width: ( 100% - ( @boelveelbreedte + @magischemarge ) );
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
   
-      &.align-right {
+      &.align-left {
         .quote-photo {
+          margin-right: @magischemarge;
           .attachment-fotoblok {
-            float: right;
+            float: left;
           }
         }
         .title-text {
-          padding-left: 2rem;      
+          padding-right: @depadding;      
+        }
+      }
+      &.align-right {
+        .quote-photo {
+          margin-left: @magischemarge;
+          .attachment-fotoblok {
+            margin-left: 61px;
+          }
+        }
+        .title-text {
+          padding-left: @depadding;      
         }
         
       }
@@ -1860,16 +2174,8 @@ div, section {
   
     @media only screen and (min-width: @maxwrapwidth ) {
 
-      .wrap {
-//        background: url('images/fucking-uitlijning.png?asdfasdf');
-//        background-position: left top;
-//        background-repeat: repeat-y;
-//        padding-top: 5rem;
-      }
-
       &.align-left {
         .wrap {
-//          background: url('images/fucking-uitlijning-rtl.png?asdfasdf');
           padding-left: 142px;
         }
         .title-text {
@@ -1901,9 +2207,30 @@ div, section {
 
   &.driekoloms {
     
+    clear: both;
+    
     h2 {
       .visuallyhidden();
     }
+    
+    .section-logo {
+
+      @media only screen and (max-width: @maxwrapwidth ) {
+        max-width: 60px;
+        float: left;
+        margin-top: .5em;
+        margin-right: 1em;
+      }
+
+      @media only screen and (min-width: @maxwrapwidth ) {
+        display: block;
+        max-width: 120px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1em;
+      }
+    }
+    
   }
 
   
@@ -1924,8 +2251,10 @@ div, section {
     }
   
     &.align-center {
-      section {
-        text-align: center;
+      @media only screen and (min-width: @maxwrapwidth ) {
+        section {
+          text-align: center;
+        }
       }
     }
   
@@ -1938,6 +2267,7 @@ div, section {
       .flex {
         display: flex;
         flex-wrap: wrap;
+        transform: translateX(-1em); // jeezes paul, dat is gewoon valsspelen.
         
         section {
           flex: 1;
@@ -1964,6 +2294,11 @@ div, section {
   
       @media only screen and (min-width: @mx980px ) {
         min-width: 25%;
+        
+        h3 {
+          .fontsize( 22 );
+        }
+        
       }
       
       img {
@@ -1973,10 +2308,77 @@ div, section {
       }
     }
   }  
+
+
+  &.porfolioblock {
+    
+  @media only screen and (min-width: @mx980px ) {
+
+    position: relative;
+    
+    .wrap {
+      padding-top: 150px;
+      padding-bottom: 2em;
+    }
+
+    &:before {
+      content: ' ';
+      display: block;
+      background-image: url('images/discpl-logo-bg-02.svg');
+      background-size: contain;
+      width: 450px;
+      height: 450px;
+      position: absolute;
+      top: 2em;
+      right: 2em;
+    }
+  }
+
+
+    
+    .flex {
+      
+      @media only screen and (min-width: @mx980px ) {
+        section {
+          max-width: 380px;
+          min-width: 30%;
+//          min-width:  300px;
+          position: relative;
+          padding-bottom: 3em;
+          
+          .read-more {
+
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 1em;
+            text-align: right;
+            padding-right: 1em;
+            
+            a {
+//              width: 3em;
+//              text-indent: -9999em;
+//              display: block;
+              background-image: url( 'images/icon-arrow-right.svg');
+              background-position: right center;
+              background-repeat: no-repeat;
+              background-size: contain;
+              padding-right: 2em;
+              text-decoration: underline;
+              .headerfont();
+              
+            	&:hover,
+            	&:active,
+            	&:focus {
+                background-image: url( 'images/icon-arrow-right-open.svg');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }  
-
-
-
 
 
 
@@ -2139,16 +2541,41 @@ p.entry-meta {
 /* Footer Widgets
 ---------------------------------------------------------------------------------------------------- */
 
+.footer-wrapper {
+  position: relative;
+
+  @media only screen and (min-width: @mx980px ) {
+    min-height: 300px;
+    
+    &:before {
+      content: ' ';
+      display: block;
+      background-image: url('images/discpl-logo-bg-02.svg');
+      background-size: contain;
+      width: 450px;
+      height: 450px;
+      position: absolute;
+      top: 2em;
+      right: 2em;
+    }
+  }
+
+}
+
 .footer-widgets .wrap {
-	background-color: #181c1e;
+	background-color: @donkerblauw;
 	clear: both;
 	padding: 80px;
 }
 
+
 .footer-widgets {
-	color: #ccc;
 	margin: 0 auto;
-	max-width: 1280px;
+	max-width: @maxwrapwidth;
+
+  &, & a {
+    color: @wit;
+  }	
 }
 
 .footer-widgets .widget-title,
@@ -2189,27 +2616,37 @@ p.entry-meta {
 ---------------------------------------------------------------------------------------------------- */
 
 .site-footer {
-	color: @wit;
+	background: @wit;
+	color: @txt;
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1;
-}
 
-.site-footer .wrap {
-	background-color: @donkerblauw;
-	padding-top: 80px;
-	padding-bottom: 80px;
 
-  @media only screen and (min-width: @maxwrapwidth ) {
-    padding-right: @degrotepadding;
-    padding-left: @degrotepadding;
+  .wrap {
+  	padding-top: 2em;
+  	padding-bottom: 2em;
+  
+    @media only screen and (min-width: @mx980px ) {
+
+      margin-right: @depadding;
+      margin-left: @depadding;
+
+    }
+  
+    @media only screen and (min-width: @maxwrapwidth ) {
+
+      margin-right: @degrotepadding;
+      margin-left: @degrotepadding;
+
+    }
+  
+    a {
+    	color: #fff;
+    }
   }
-
 }
 
-.site-footer .wrap a {
-	color: #fff;
-}
 
 .site-footer a:focus,
 .site-footer a:hover {
@@ -2354,9 +2791,10 @@ p.entry-meta {
 	}
 
 	.site-header > .wrap {
-		background-color: #181c1e;
+		background-color: #333;
 		color: #fff;
 	}
+	
 
 	.site-header .site-title a,
 	.site-header .site-title a:focus,
@@ -2589,7 +3027,7 @@ p.entry-meta {
 	.flexible-widgets.widget-full .widget,
 	.footer-widgets .wrap,
 	.site-footer .wrap {
-		padding: 40px;
+		padding: 1em;
 	}
 
 	.archive.genesis-author-pro .content,
@@ -2657,10 +3095,40 @@ p.entry-meta {
 		font-size: 1.6rem;
 	}
 
-	.wrap {
-		padding-left: 5%;
-		padding-right: 5%;
-	}
+
+  
+  h1 {
+    .fontsize( 32 );
+  }
+  
+  h2 {
+    .fontsize( 24 );
+  }
+  
+  h3 {
+    .fontsize( 20 );
+  }
+  
+  h4 {
+    .fontsize( 18 );
+  }
+  
+  h5 {
+    .fontsize( 16 );
+  }
+  
+  h6 {
+    .fontsize( 16 );
+  }
+  
+  .lichtblauw,
+  .donkerblauw,
+  .lila {
+    padding: .5em;
+    h2, h3 {
+      padding-top: 0 !important;
+    }
+  }
 
 	.featured-widget-area .wrap {
 		padding: 0;

@@ -7,27 +7,26 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 0.1.1
-// * @desc.   Webfonts toegevoegd; portfolio en teammembers als CPT toegevoegd; homepage totaal onder handen genomen.
+// * @version 1.0.1
+// * @desc.   Eerste accept-versie.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
-
-
-
 
 //========================================================================================================
 
 if( function_exists('acf_add_local_field_group') ):
 
-  //======================================================================================================
-  // ACF DEF HERE
 
+  //------------------------------------------------------------------------------------------------------
+  // ACF DEF HERE
+  // team member info
+  // 
   acf_add_local_field_group(array(
   	'key' => 'group_5c61bc236720d',
   	'title' => 'Discipl - team member info',
   	'fields' => array(
   		array(
   			'key' => 'field_5c61bc2d458df',
-  			'label' => 'Functietitel',
+			'label' => 'Functietitel',
   			'name' => 'teammember_title',
   			'type' => 'text',
   			'instructions' => '',
@@ -114,7 +113,7 @@ if( function_exists('acf_add_local_field_group') ):
   			array(
   				'param' => 'post_type',
   				'operator' => '==',
-  				'value' => 'team',
+  				'value' => DISCIPL_CPT_TEAM,
   			),
   		),
   	),
@@ -128,8 +127,9 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
 
-  //======================================================================================================
-
+  //------------------------------------------------------------------------------------------------------
+  // the fields for a page
+    
   acf_add_local_field_group(array(
   	'key' => 'group_5c61522ae3a23',
   	'title' => 'Discipl - extra page blocks',
@@ -170,7 +170,7 @@ if( function_exists('acf_add_local_field_group') ):
   						'tekst_foto' => 'Tekst met foto',
   						'driekoloms' => 'Driekoloms tekst',
   						'teamblock' => 'Block met team-info',
-  						'porfolioblock' => 'Portfolio-items',
+  						'porfolioblock' => 'Projecten',
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,
@@ -225,6 +225,7 @@ if( function_exists('acf_add_local_field_group') ):
   					'media_upload' => 0,
   					'delay' => 0,
   				),
+/*  				
   				array(
   					'key' => 'field_5c615500f7bba',
   					'label' => 'Fotoblockcitaat',
@@ -252,6 +253,7 @@ if( function_exists('acf_add_local_field_group') ):
   					'rows' => '',
   					'new_lines' => '',
   				),
+*/  				
   				array(
   					'key' => 'field_5c6154bdafc1c',
   					'label' => 'Fotoblockimage',
@@ -524,7 +526,7 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'post_type' => array(
-  						0 => 'team',
+  						0 => DISCIPL_CPT_TEAM,
   					),
   					'taxonomy' => '',
   					'filters' => array(
@@ -538,10 +540,10 @@ if( function_exists('acf_add_local_field_group') ):
   					'return_format' => 'object',
   				),
   				array(
-  					'key' => 'field_5c61d4950b6bf',
-  					'label' => 'Portfolio-titel',
-  					'name' => 'portfolio_titel',
-  					'type' => 'text',
+            'key' => 'field_5c61d4950b6bf',
+            'label' => 'Korte beschrijving',
+            'name' => 'portfolio_description',
+            'type' => 'textarea',
   					'instructions' => '',
   					'required' => 0,
   					'conditional_logic' => array(
@@ -593,7 +595,7 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array(
   					'key' => 'field_5c61934ce8116',
-  					'label' => 'Portfolio-items',
+  					'label' => 'Projecten',
   					'name' => 'portfolio_items',
   					'type' => 'relationship',
   					'instructions' => '',
@@ -613,7 +615,7 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'post_type' => array(
-  						0 => 'portfolio',
+  						0 => DISCIPL_CPT_PROJECTEN,
   					),
   					'taxonomy' => '',
   					'filters' => array(
@@ -689,30 +691,9 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
 
-
-  //======================================================================================================
-
-endif;
-
-//========================================================================================================
-
-// options page 
-if ( 33 == 22 ) {
+  //------------------------------------------------------------------------------------------------------
   
-    if( function_exists('acf_add_options_page') ):
-    
-    	$args = array(
-    		'slug' => 'instellingen',
-    		'title' => __( 'Instellingen theme', 'wp-rijkshuisstijl' ),
-    		'parent' => 'themes.php'
-    	); 
-    	
-    		acf_add_options_page($args);
-    
-    endif;
-
-}
-
+endif;
 
 //========================================================================================================
 
@@ -720,64 +701,67 @@ add_action( 'init', 'cptui_register_my_cpts' );
 
 function cptui_register_my_cpts() {
 
+  //------------------------------------------------------------------------------------------------------
+  
 	$labels = array(
-		"name"                  => __( 'Portfolio-items', 'wp-rijkshuisstijl' ),
-		"singular_name"         => __( 'Portfolio-item', 'wp-rijkshuisstijl' ),
-		"menu_name"             => __( 'Portfolio-items', 'wp-rijkshuisstijl' ),
-		"all_items"             => __( 'Alle portfolio-items', 'wp-rijkshuisstijl' ),
-		"add_new"               => __( 'Nieuwe portfolio-item toevoegen', 'wp-rijkshuisstijl' ),
-		"add_new_item"          => __( 'Voeg nieuwe portfolio-item toe', 'wp-rijkshuisstijl' ),
-		"edit_item"             => __( 'Bewerk portfolio-item', 'wp-rijkshuisstijl' ),
-		"new_item"              => __( 'Nieuwe portfolio-item', 'wp-rijkshuisstijl' ),
-		"view_item"             => __( 'Bekijk portfolio-item', 'wp-rijkshuisstijl' ),
-		"search_items"          => __( 'Zoek portfolio-item', 'wp-rijkshuisstijl' ),
-		"not_found"             => __( 'Geen portfolio-items gevonden', 'wp-rijkshuisstijl' ),
-		"not_found_in_trash"    => __( 'Geen portfolio-items gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
-		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
-		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
-		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		"name"                  => __( 'Projecten', 'discipl' ),
+		"singular_name"         => __( 'Project', 'discipl' ),
+		"menu_name"             => __( 'Projecten', 'discipl' ),
+		"all_items"             => __( 'Alle projecten', 'discipl' ),
+		"add_new"               => __( 'Nieuw project toevoegen', 'discipl' ),
+		"add_new_item"          => __( 'Voeg nieuw project toe', 'discipl' ),
+		"edit_item"             => __( 'Bewerk Project', 'discipl' ),
+		"new_item"              => __( 'Nieuw project', 'discipl' ),
+		"view_item"             => __( 'Bekijk Project', 'discipl' ),
+		"search_items"          => __( 'Zoek Project', 'discipl' ),
+		"not_found"             => __( 'Geen projecten gevonden', 'discipl' ),
+		"not_found_in_trash"    => __( 'Geen projecten gevonden in de prullenbak', 'discipl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'discipl' ),
+		"archives"              => __( 'Overzichten', 'discipl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'discipl' ),
 		);
 
+
 	$args = array(
-		"label"                 => __( 'Portfolio-items', '' ),
+		"label"                 => __( 'Projecten', '' ),
 		"labels"                => $labels,
 		"description"           => "Info over gerealiseerde projecten",
 		"public"                => true,
-		"publicly_queryable"    => false,
+		"publicly_queryable"    => true,
 		"show_ui"               => true,
 		"show_in_rest"          => false,
 		"rest_base"             => "",
-		"has_archive"           => false,
+		"has_archive"           => true,
 		"show_in_menu"          => true,
 		"exclude_from_search"   => false,
 		"capability_type"       => "post",
 		"map_meta_cap"          => true,
 		"hierarchical"          => false,
-		"rewrite"               => array( "slug" => DISCIPL_CPT_PORTFOLIO, "with_front" => false ),
-		"query_var"             => false,
+		"rewrite"               => array( "slug" => DISCIPL_CPT_PROJECTEN, "with_front" => true ),
+		"query_var"             => true,
 		"supports"              => array( "title", "excerpt", "thumbnail", "editor", "revisions" ),
 	);
 
-	register_post_type( DISCIPL_CPT_PORTFOLIO, $args );
+	register_post_type( DISCIPL_CPT_PROJECTEN, $args );
 
-
-
+  //------------------------------------------------------------------------------------------------------
+  
 	$labels = array(
-		"name"                  => __( 'Teamleden', 'wp-rijkshuisstijl' ),
-		"singular_name"         => __( 'Teamlid', 'wp-rijkshuisstijl' ),
-		"menu_name"             => __( 'Teamleden', 'wp-rijkshuisstijl' ),
-		"all_items"             => __( 'Alle teamleden', 'wp-rijkshuisstijl' ),
-		"add_new"               => __( 'Nieuw teamlid toevoegen', 'wp-rijkshuisstijl' ),
-		"add_new_item"          => __( 'Voeg nieuw teamlid toe', 'wp-rijkshuisstijl' ),
-		"edit_item"             => __( 'Bewerk teamlid', 'wp-rijkshuisstijl' ),
-		"new_item"              => __( 'Nieuw teamlid', 'wp-rijkshuisstijl' ),
-		"view_item"             => __( 'Bekijk teamlid', 'wp-rijkshuisstijl' ),
-		"search_items"          => __( 'Zoek teamlid', 'wp-rijkshuisstijl' ),
-		"not_found"             => __( 'Geen teamleden gevonden', 'wp-rijkshuisstijl' ),
-		"not_found_in_trash"    => __( 'Geen teamleden gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
-		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
-		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
-		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		"name"                  => __( 'Teamleden', 'discipl' ),
+		"singular_name"         => __( 'Teamlid', 'discipl' ),
+		"menu_name"             => __( 'Teamleden', 'discipl' ),
+		"all_items"             => __( 'Alle teamleden', 'discipl' ),
+		"add_new"               => __( 'Nieuw teamlid toevoegen', 'discipl' ),
+		"add_new_item"          => __( 'Voeg nieuw teamlid toe', 'discipl' ),
+		"edit_item"             => __( 'Bewerk teamlid', 'discipl' ),
+		"new_item"              => __( 'Nieuw teamlid', 'discipl' ),
+		"view_item"             => __( 'Bekijk teamlid', 'discipl' ),
+		"search_items"          => __( 'Zoek teamlid', 'discipl' ),
+		"not_found"             => __( 'Geen teamleden gevonden', 'discipl' ),
+		"not_found_in_trash"    => __( 'Geen teamleden gevonden in de prullenbak', 'discipl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'discipl' ),
+		"archives"              => __( 'Overzichten', 'discipl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'discipl' ),
 		);
 
 	$args = array(
@@ -785,11 +769,11 @@ function cptui_register_my_cpts() {
 		"labels"                => $labels,
 		"description"           => "Info over medewerkers",
 		"public"                => true,
-		"publicly_queryable"    => false,
+		"publicly_queryable"    => true,
 		"show_ui"               => true,
 		"show_in_rest"          => false,
 		"rest_base"             => "",
-		"has_archive"           => false,
+		"has_archive"           => true,
 		"show_in_menu"          => true,
 		"exclude_from_search"   => false,
 		"capability_type"       => "post",
@@ -802,7 +786,111 @@ function cptui_register_my_cpts() {
 
 	register_post_type( DISCIPL_CPT_TEAM, $args );
 
+  //------------------------------------------------------------------------------------------------------
+  
 }
+
+//========================================================================================================
+// options page 
+
+if( function_exists('acf_add_options_page') ):
+
+	$args = array(
+		'slug' => 'instellingen',
+		'title' => __( 'Extra settings discipl.org', 'discipl' ),
+		'parent' => 'themes.php'
+  ); 
+  
+  acf_add_options_page($args);
+
+  acf_add_local_field_group(array(
+  	'key' => 'group_5c73b144ca785',
+  	'title' => 'Discipl - site-teksten',
+  	'fields' => array(
+  		array(
+  			'key' => 'field_5c73b17420925',
+  			'label' => 'Tekst op meer weten knop',
+  			'name' => 'discipl_cta_meer_weten',
+  			'type' => 'textarea',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'maxlength' => '',
+  			'rows' => '',
+  			'new_lines' => '',
+  		),
+  		array(
+  			'key' => 'field_5c740b343e204',
+  			'label' => 'Logo in footer',
+  			'name' => 'discipl_footer_logo',
+  			'type' => 'image',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'return_format' => 'array',
+  			'preview_size' => 'thumbnail',
+  			'library' => 'all',
+  			'min_width' => '',
+  			'min_height' => '',
+  			'min_size' => '',
+  			'max_width' => '',
+  			'max_height' => '',
+  			'max_size' => '',
+  			'mime_types' => '',
+  		),
+  		array(
+  			'key' => 'field_5c73fe225eed2',
+  			'label' => 'Tekst in footer',
+  			'name' => 'discipl_footer_payoff',
+  			'type' => 'textarea',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'maxlength' => '',
+  			'rows' => '',
+  			'new_lines' => '',
+  		),
+  	),
+  	'location' => array(
+  		array(
+  			array(
+  				'param' => 'options_page',
+  				'operator' => '==',
+  				'value' => 'instellingen',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => true,
+  	'description' => '',
+  ));
+  
+endif;
+
 
 //========================================================================================================
 
