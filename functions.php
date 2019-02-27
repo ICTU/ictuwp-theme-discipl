@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.1
-// * @desc.   Eerste accept-versie.
+// * @version 1.0.2
+// * @desc.   Bugfixes css en functions.php.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -44,7 +44,7 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '1.0.1' );
+define( 'CHILD_THEME_VERSION', '1.0.2' );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
@@ -67,8 +67,8 @@ if ( ! defined( 'DISCIPL_CPT_TEAM' ) ) {
 // de site is nu (feb 2019) bedoeld als one-pager.
 // bij meer budget gaan we doorkliks vanaf de homepage mogelijk maken
 if ( ! defined( 'DISCIPL_IS_ONEPAGER' ) ) {
-  define( 'DISCIPL_IS_ONEPAGER', false );  // dus doorkliks zijn oke!
-//  define( 'DISCIPL_IS_ONEPAGER', true );  // dus doorkliks = nono
+//  define( 'DISCIPL_IS_ONEPAGER', false );  // dus doorkliks zijn oke!
+  define( 'DISCIPL_IS_ONEPAGER', true );  // dus doorkliks = nono
 }
 
 // Include for Advanced Custom Fields and Custom Post Type definitions
@@ -421,11 +421,11 @@ function discipl_frontend_add_page_content() {
           if ( 'align-left' == $fotoblock_alignment ) {
             // foto aan de linkerkant, tekst rechts
 
-            echo '<div class="quote-photo">';
             if ( $image ) {
+              echo '<div class="quote-photo">';
               echo wp_get_attachment_image( $image['ID'], $size );
+              echo '</div>'; // .quote-photo
             }
-            echo '</div>'; // .quote-photo
             
             echo '<div class="title-text">';
             echo '<div class="flex-text">';
@@ -444,11 +444,11 @@ function discipl_frontend_add_page_content() {
             echo '</div>'; // .flex-text
             echo '</div>'; // .title-text
 
-            echo '<div class="quote-photo">';
             if ( $image ) {
+              echo '<div class="quote-photo">';
               echo wp_get_attachment_image( $image['ID'], $size );
+              echo '</div>'; // .quote-photo
             }
-            echo '</div>'; // .quote-photo
             
           }
 
@@ -922,4 +922,94 @@ function discipl_frontend_add_cta_button() {
 
 //========================================================================================================
 
+add_action( 'send_headers', 'wbvb_set_hsts_policy' );
+/**
+ * Enables the HTTP Strict Transport Security (HSTS) header.
+ *
+ * @since 1.0.0
+ */
+function wbvb_set_hsts_policy() {
+ 
+  // 2 year expiration: 63072000
+  header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload' );
 
+ 
+}
+
+
+//========================================================================================================
+
+add_action( 'genesis_meta', 'author_front_page_genesis_meta' );
+
+/**
+ * Add widget support for homepage. If no widgets active, display the default loop.
+ *
+ * @since 1.0.0
+ */
+
+function author_front_page_genesis_meta() {
+
+	if ( is_active_sidebar( 'front-page-1' ) || is_active_sidebar( 'front-page-2' ) || is_active_sidebar( 'front-page-3' ) || is_active_sidebar( 'front-page-4' ) || is_active_sidebar( 'front-page-5' ) ) {
+
+		// Add front-page body class.
+		add_filter( 'body_class', 'author_body_class' );
+
+		// Force full width content layout.
+		add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
+
+		// Remove breadcrumbs.
+		remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs');
+
+		// Remove the default Genesis loop.
+		remove_action( 'genesis_loop', 'genesis_do_loop' );
+
+		// Add front page 1 widget.
+		add_action( 'genesis_after_header', 'author_front_page_1_widget', 5 );
+
+		// Add the rest of front page widgets.
+		add_action( 'genesis_loop', 'author_front_page_widgets' );
+
+	}
+
+}
+
+
+//========================================================================================================
+
+// Add markup for front page widgets.
+function author_front_page_1_widget() {
+
+	genesis_widget_area( 'front-page-1', array(
+		'before' => '<div class="featured-widget-area"><div class="wrap"><div id="front-page-1" class="front-page-1"><div class="flexible-widgets widget-area' . author_widget_area_class( 'front-page-1' ) . '">',
+		'after'  => '</div></div></div></div>',
+	) );
+
+}
+
+//========================================================================================================
+
+function author_front_page_widgets() {
+
+	genesis_widget_area( 'front-page-2', array(
+		'before' => '<div id="front-page-2" class="front-page-2"><div class="flexible-widgets widget-area' . author_widget_area_class( 'front-page-2' ) . '">',
+		'after'  => '</div></div>',
+	) );
+
+	genesis_widget_area( 'front-page-3', array(
+		'before' => '<div id="front-page-3" class="front-page-3"><div class="flexible-widgets widget-area' . author_widget_area_class( 'front-page-3' ) . '">',
+		'after'  => '</div></div>',
+	) );
+
+	genesis_widget_area( 'front-page-4', array(
+		'before' => '<div id="front-page-4" class="front-page-4"><div class="flexible-widgets widget-area' . author_widget_area_class( 'front-page-4' ) . '">',
+		'after'  => '</div></div>',
+	) );
+
+	genesis_widget_area( 'front-page-5', array(
+		'before' => '<div id="front-page-5" class="front-page-5"><div class="flexible-widgets widget-area' . author_widget_area_class( 'front-page-5' ) . '">',
+		'after'  => '</div></div>',
+	) );
+
+}
+
+//========================================================================================================

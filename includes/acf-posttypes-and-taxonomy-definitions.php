@@ -7,8 +7,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.1
-// * @desc.   Eerste accept-versie.
+// * @version 1.0.2
+// * @desc.   Bugfixes css en functions.php.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 //========================================================================================================
@@ -200,7 +200,7 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array(
   					'key' => 'field_5c615475704fb',
-  					'label' => 'Fotoblocktekst',
+  					'label' => 'Tekst in fotoblock',
   					'name' => 'fotoblock_text',
   					'type' => 'wysiwyg',
   					'instructions' => 'Hier geen plaatjes toevoegen.',
@@ -219,8 +219,8 @@ if( function_exists('acf_add_local_field_group') ):
   						'class' => '',
   						'id' => '',
   					),
-  					'default_value' => 'Fotoblocktekst',
-  					'tabs' => 'visual',
+  					'default_value' => '',
+  					'tabs' => 'all',
   					'toolbar' => 'basic',
   					'media_upload' => 0,
   					'delay' => 0,

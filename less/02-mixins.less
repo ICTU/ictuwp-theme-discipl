@@ -6,11 +6,20 @@
 // @package discipl-2019
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
-// @version 1.0.1
-// @desc.   Eerste accept-versie.
+// @version 1.0.2
+// @desc.   Bugfixes css en functions.php.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
+
+//========================================================================================================
+
+.widhtheightem( @type: ~"height", @fontsize_px: 16 ) {
+
+  @{type}: ( @fontsize_px * 1px );
+  @{type}: ( ( @fontsize_px / 10 ) * 1rem );
+
+}
 
 //========================================================================================================
 
@@ -110,7 +119,7 @@
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-website.svg', @wit);
+          .icon_socmed_icon('../images/icon-website.svg', @wit );
         }
       }
       .linkedin {
