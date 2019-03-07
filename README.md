@@ -18,9 +18,10 @@ De homepage (en andere pagina's) worden aangevuld met ACF-velden.
 * ..
 
 ## Current version:
-1.0.2 - Bugfixes css en functions.php.
+1.0.3 - CSS voor breadcrumb; hover op menu aangepast.
 
 ## Version history
+* 1.0.3 - CSS voor breadcrumb; hover op menu aangepast.
 * 1.0.2 - Bugfixes css en functions.php.
 * 1.0.1 - Eerste accept-versie.
 * 0.1.1 - Webfonts toegevoegd; portfolio en teammembers als CPT toegevoegd; homepage totaal onder handen genomen.

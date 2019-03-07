@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.2
-// * @desc.   Bugfixes css en functions.php.
+// * @version 1.0.3
+// * @desc.   CSS voor breadcrumb; hover op menu aangepast.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -44,7 +44,7 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '1.0.2' );
+define( 'CHILD_THEME_VERSION', '1.0.3' );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
@@ -459,6 +459,10 @@ function discipl_frontend_add_page_content() {
         elseif ( 'driekoloms' == $type_block ) {
 
   				$section_align        = get_sub_field('kolommen_uitlijning');
+  				
+  				if ( ! $section_align ) {
+    				$section_align = 'align-center';
+  				}
 
           // min 2, max 3 kolommen
           if( have_rows('kolommen') ) {
@@ -550,6 +554,7 @@ function discipl_frontend_add_page_content() {
               }
 
               echo '<p> ' . $section_text . '</p>';
+              
               if ( $website || $github || $linkedin || $twitter) {
 
                 $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
@@ -723,12 +728,18 @@ add_filter('genesis_footer_creds_text', 'discipl_frontend_add_footer_text');
 function discipl_frontend_add_footer_text( $creds ) {
   
 	$discipl_footer_payoff    = get_field('discipl_footer_payoff', 'option');
-  
+	$discipl_footer_logo      = get_field('discipl_footer_logo', 'option');
+
   if ( $discipl_footer_payoff ) {
+
     $creds = $discipl_footer_payoff;
+    
+    if ( $discipl_footer_logo ) {
+      $creds = '<img src="' . $discipl_footer_logo['url'] . '" alt="' . $discipl_footer_logo['alt'] . '" id="footerlogo_discipl" /><div>' . $discipl_footer_payoff . '</div>';
+    }
   }
   else {
-  	$creds = '<img src="' . RHSWP_THEMEFOLDER . '/images/ictu-logo.svg" alt="ICTU Logo"> &copy; 2019 - Discipl is een initiatief van ICTU.';
+  	$creds = '<img src="' . RHSWP_THEMEFOLDER . '/images/ictu-logo.svg" alt="ICTU Logo" id="footerlogo_discipl" /> &copy; 2019 - Discipl is een initiatief van ICTU.';
   }
 
 	return $creds;
@@ -747,13 +758,20 @@ function discipl_frontend_add_post_content( ) {
   if ( is_single() && DISCIPL_CPT_TEAM == get_post_type() ) {
 
     echo get_the_post_thumbnail( get_the_id(), 'projectfoto' );
-    echo get_the_excerpt();
 
+
+		$teammember_title     = get_field( 'teammember_title', get_the_id() );
 		$website              = get_field( 'teammember_website_url', get_the_id() );
 		$github               = get_field( 'teammember_github_url', get_the_id() );
 		$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
 		$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
 		$section_title        = get_the_title();
+
+    if ( $teammember_title ) {
+      echo '<p>' . $teammember_title . '</p>';
+    }
+
+    echo get_the_excerpt();
 
     if ( $website || $github || $linkedin || $twitter) {
 
@@ -868,11 +886,16 @@ function wbvb_modernista_post_meta($post_meta) {
 	else {
 		if ( is_archive() ) {
 
+  		$teammember_title     = get_field( 'teammember_title', get_the_id() );
 			$website              = get_field( 'teammember_website_url', get_the_id() );
 			$github               = get_field( 'teammember_github_url', get_the_id() );
 			$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
 			$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
 			$section_title        = get_the_title();
+
+      if ( $teammember_title ) {
+        echo '<p>' . $teammember_title . '</p>';
+      }
 
       if ( $website || $github || $linkedin || $twitter) {
 

@@ -7,8 +7,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.2
-// * @desc.   Bugfixes css en functions.php.
+// * @version 1.0.3
+// * @desc.   CSS voor breadcrumb; hover op menu aangepast.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 //========================================================================================================
@@ -198,6 +198,38 @@ if( function_exists('acf_add_local_field_group') ):
   					'append' => '',
   					'maxlength' => '',
   				),
+  				array(
+  					'key' => 'field_5c61a5627cdba',
+  					'label' => 'Kolomuitlijning',
+  					'name' => 'kolommen_uitlijning',
+  					'type' => 'radio',
+  					'instructions' => '',
+  					'required' => 0,
+  					'conditional_logic' => array(
+  						array(
+  							array(
+  								'field' => 'field_5c615267f1ab3',
+  								'operator' => '==',
+  								'value' => 'driekoloms',
+  							),
+  						),
+  					),
+  					'wrapper' => array(
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array(
+  						'align-left' => 'Tekst links uitlijnen',
+  						'align-center' => 'Tekst centreren',
+  					),
+  					'allow_null' => 0,
+  					'other_choice' => 0,
+  					'default_value' => 'align-center',
+  					'layout' => 'vertical',
+  					'return_format' => 'value',
+  					'save_other_choice' => 0,
+  				),  				
   				array(
   					'key' => 'field_5c615475704fb',
   					'label' => 'Tekst in fotoblock',
@@ -445,38 +477,7 @@ if( function_exists('acf_add_local_field_group') ):
   						),
   					),
   				),
-  				array(
-  					'key' => 'field_5c61a5627cdba',
-  					'label' => 'Kolomuitlijning',
-  					'name' => 'kolommen_uitlijning',
-  					'type' => 'radio',
-  					'instructions' => '',
-  					'required' => 0,
-  					'conditional_logic' => array(
-  						array(
-  							array(
-  								'field' => 'field_5c615267f1ab3',
-  								'operator' => '==',
-  								'value' => 'driekoloms',
-  							),
-  						),
-  					),
-  					'wrapper' => array(
-  						'width' => '',
-  						'class' => '',
-  						'id' => '',
-  					),
-  					'choices' => array(
-  						'align-left' => 'Tekst links uitlijnen',
-  						'align-center' => 'Tekst centreren',
-  					),
-  					'allow_null' => 0,
-  					'other_choice' => 0,
-  					'default_value' => '',
-  					'layout' => 'vertical',
-  					'return_format' => 'value',
-  					'save_other_choice' => 0,
-  				),
+
   				array(
   					'key' => 'field_5c619337e8115',
   					'label' => 'Teaminfo-intro',
@@ -747,7 +748,7 @@ function cptui_register_my_cpts() {
   //------------------------------------------------------------------------------------------------------
   
 	$labels = array(
-		"name"                  => __( 'Teamleden', 'discipl' ),
+		"name"                  => __( 'Team', 'discipl' ),
 		"singular_name"         => __( 'Teamlid', 'discipl' ),
 		"menu_name"             => __( 'Teamleden', 'discipl' ),
 		"all_items"             => __( 'Alle teamleden', 'discipl' ),

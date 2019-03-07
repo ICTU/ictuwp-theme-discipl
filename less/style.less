@@ -1,4 +1,4 @@
-@versie: '1.0.2';
+@versie: '1.0.3';
 /*!
 	Theme Name: ICTU Theme discipl.org (2019)
 	Theme URI: https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
@@ -6,7 +6,7 @@
 	Author: StudioPress / Paul van Buuren
 	Author URI: https://wbvb.nl/
 
-	Version: 1.0.2
+	Version: 1.0.3
 
 	Tags: one-column, two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-colors, custom-menu, e-commerce, featured-images, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
 
@@ -63,8 +63,8 @@
 // @package discipl-2019
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
-// @version 1.0.2
-// @desc.   Bugfixes css en functions.php.
+// @version 1.0.3
+// @desc.   CSS voor breadcrumb; hover op menu aangepast.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
@@ -342,7 +342,7 @@ h2 {
 }
 
 h3 {
-  .fontsize( 30 );
+  .fontsize( 24 );
 }
 
 h4 {
@@ -366,11 +366,11 @@ h6 {
     }
   }  
   h2 {
-    .fontsize( 60 );
+    .fontsize( 36 );
   }
   
   h3 {
-    .fontsize( 36 );
+    .fontsize( 24 );
   }
   
   h4 {
@@ -858,7 +858,14 @@ th {
 
 .breadcrumb {
 	background-color: #f3f3f3;
-	padding: 20px 30px;
+	background: @wit;
+	padding: 20px 30px 20px 0;
+	text-transform: lowercase;
+	a {
+  	color: @txt;
+  	text-decoration: underline;
+  	font-size: 90%;
+	}
 }
 
 
@@ -1203,6 +1210,10 @@ div .book-featured-text-banner {
         padding-bottom: 2em;
         margin-bottom: 2em;
         
+        &.teamleden {
+          text-align: center;
+        }
+        
         &:after {
           content: ' ';
           border-bottom: 1px solid @light_gray;
@@ -1279,6 +1290,21 @@ div .book-featured-text-banner {
 }
 
 .archive {
+  
+  .content-sidebar-wrap {
+    background: @lichtblauw;
+    
+    .breadcrumb {
+      background: @lichtblauw;
+    }
+    
+    .flex article:after {
+      content: '';
+      border-bottom-style: none;
+    }
+    
+  }
+  
   #genesis-content {
     position: relative;
   }
@@ -1579,6 +1605,11 @@ div .book-featured-text-banner {
     @media only screen and (min-width: @mx980px ) {
     	a {
         .icon_socmed_icon('../images/icon-github.svg', @txt);
+        &:hover,
+        &:active,
+        &:focus {
+          .icon_socmed_icon('../images/icon-github.svg', @wit);
+      	}
     	}
   	}
 	}
@@ -1592,6 +1623,11 @@ div .book-featured-text-banner {
     @media only screen and (min-width: @mx980px ) {
     	a {
         .icon_socmed_icon('../images/icon-twitter.svg', @txt);
+        &:hover,
+        &:active,
+        &:focus {
+          .icon_socmed_icon('../images/icon-twitter.svg', @wit);
+      	}
     	}
   	}
   	
@@ -1623,11 +1659,19 @@ div .book-featured-text-banner {
 	text-transform: uppercase;
 }
 
-.genesis-nav-menu a:focus,
-.genesis-nav-menu a:hover,
 .genesis-nav-menu .current-menu-item > a,
 .genesis-nav-menu .sub-menu .current-menu-item > a:focus,
 .genesis-nav-menu .sub-menu .current-menu-item > a:hover {
+}
+
+.home {
+  .menu-item-home.current-menu-item {
+    .visuallyhidden();    
+  }
+}
+
+.genesis-nav-menu a:focus,
+.genesis-nav-menu a:hover {
 	background-color: @txt;
 	color: @wit;
 }
@@ -1999,7 +2043,6 @@ div, section {
 
     .quote-photo {
       position: relative;
-//      border: 10px solid red;
 
       img {
         width: 100% !important;
@@ -2328,7 +2371,8 @@ div, section {
     }
   
     &.align-center {
-      @media only screen and (min-width: @maxwrapwidth ) {
+
+      @media only screen and (min-width: @mx980px ) {
         section {
           text-align: center;
         }
@@ -2720,6 +2764,20 @@ p.entry-meta {
     	color: #fff;
     }
   }
+  
+  #footerlogo_discipl {
+    max-height: 50px;
+    width: auto;
+    float: left;
+    margin-right: 1em;
+    transform: translateY(-1em);
+    
+    & + div,
+    & + p {
+      margin-top: 1em;
+    }
+  }
+  
 }
 
 
@@ -3258,3 +3316,405 @@ p.entry-meta {
 	}
 
 }
+
+// .revenge();
+
+.revenge() {
+  
+  //
+  // Revenge CSS v 1.0 
+  // Copyright 2013, Heydon Pickering: http://www.heydonworks.com
+  // Released under Attribution 3.0 Unported license - http://creativecommons.org/licenses/by/3.0/
+  // Please leave this comment block intact as attribution
+  //
+  
+  a:not([href]), a[href=""], a[href$="#"], a[href^="javascript"], 
+  .button:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+  .btn:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"]), 
+  a[class*="button"]:not([role="button"]), 
+  a[role="button"]:not([href*="/"]):not([href*="."]):not([href*="?"]), 
+  a[role="button"][href=""], a[role="button"][href$="#"], a[role="button"][href^="javascript"], 
+  .button:not(button):not([role="button"]):not(input),
+  .btn:not(button):not([role="button"]):not(input), 
+  a[class*="button"]:not([role="button"]), 
+  a.button[class*="disabled"],  
+  a.btn.disabled, a[class*="button"][class*="disabled"], 
+  form button:not([type]), 
+  a:empty:not([aria-label]):not([aria-labelledby]), 
+  button:empty:not([aria-label]):not([aria-labelledby]), 
+  button:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt]), 
+  a:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt]), 
+  .button:not(a):not(button):not(input), 
+  .btn:not(a):not(button):not(input),  
+  figcaption, 
+  form:not([action]),  
+  fieldset > *:first-child:not(legend), 
+  button.disabled:not([disabled]):not([readonly]), 
+  acronym, applet, basefont, center, dir, 
+  font, frame, frameset, isindex, listing, menu, multicol, 
+  plaintext, s, strike, u, xmp, bgsound, blink, comment, 
+  embed, marquee, nobr, noembed, wbr, 
+  *:empty:not(script), 
+  section > section:first-child, 
+  article > section:first-child, 
+  article > article:first-child, 
+  section > article:first-child, 
+  section > aside:first-child, 
+  aside > aside:first-child, 
+  article > aside:first-child, 
+  aside > article:first-child, 
+  aside > section:first-child, 
+  body > header:not([role="banner"]), body > div > header:not([role="banner"]),  
+  body > footer:not([role="contentinfo"]), body > div > footer:not([role="contentinfo"]), 
+  section [role="banner"], section [role="contentinfo"], 
+  article [role="banner"], article [role="contentinfo"], 
+  aside [role="banner"], aside [role="contentinfo"], 
+  #main:not(main), 
+  .main:not(main), 
+  #main-content:not(main), 
+  .main-content:not(main), 
+  #page-content:not(main), 
+  .page-content:not(main), 
+  [align], [alink], [background], 
+  [bgcolor], [border], [clear], 
+  [height], [hspace], [link], 
+  [nowrap], [start], [vlink], 
+  [vspace], 
+  script[language], 
+  table[summary], 
+  ol > *:not(li), 
+  ul > *:not(li), 
+  dl > *:not(dt):not(dd), 
+  dt + *:not(dd), 
+  abbr div, b div, i div, span div, em div, 
+  strong div, small div, cite div, q div, code div, 
+  label div,
+  [tabindex]:not([tabindex="0"]):not([tabindex="-1"]), 
+  li.divider:not([role="separator"]), li:empty:not([role="separator"]), 
+  li.dropdown-header,
+  .btn:not(button):not([href]), 
+  li.disabled > a[href]:not([tabindex="-1"]),
+  li.disabled > button:not([disabled]), 
+  a.disabled[href]:not([tabindex="-1"]),
+  button.disabled:not([disabled]), 
+  [data-toggle="dropdown"]:not([aria-haspopup]) {
+  	overflow: visible !important;	
+  }
+  
+  a:not([href])::after, a[href=""]::after, a[href$="#"]::after, a[href^="javascript"]::after, 
+  .button:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"])::after,
+  .btn:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"])::after, 
+  a[class*="button"]:not([role="button"])::after, 
+  a[role="button"]:not([href*="/"]):not([href*="."]):not([href*="?"])::after, 
+  a[role="button"][href=""]::after, a[role="button"][href$="#"]::after, a[role="button"][href^="javascript"]::after, 
+  .button:not(button):not([role="button"]):not(input)::after,
+  .btn:not(button):not([role="button"]):not(input)::after, 
+  a[class*="button"]:not([role="button"])::after, 
+  a.button[class*="disabled"]::after,  
+  a.btn.disabled::after, a[class*="button"][class*="disabled"]::after, 
+  form button:not([type])::after, 
+  a:empty:not([aria-label]):not([aria-labelledby])::after, 
+  button:empty:not([aria-label]):not([aria-labelledby])::after, 
+  button:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt])::after, 
+  a:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt])::after, 
+  .button:not(a):not(button):not(input)::after, 
+  .btn:not(a):not(button):not(input)::after,  
+  figcaption::after, 
+  form:not([action])::after,  
+  fieldset > *:first-child:not(legend)::after, 
+  button.disabled:not([disabled]):not([readonly])::after, 
+  acronym::after, applet::after, basefont::after, center::after, dir::after, 
+  font::after, frame::after, frameset::after, isindex::after, listing::after, menu::after, multicol::after, 
+  plaintext::after, s::after, strike::after, u::after, xmp::after, bgsound::after, blink::after, comment::after, 
+  embed::after, marquee::after, nobr::after, noembed::after, wbr::after, 
+  *:empty:not(script)::after, 
+  section > section:first-child::after, 
+  article > section:first-child::after, 
+  article > article:first-child::after, 
+  section > article:first-child::after, 
+  section > aside:first-child::after, 
+  aside > aside:first-child::after, 
+  article > aside:first-child::after, 
+  aside > article:first-child::after, 
+  aside > section:first-child::after, 
+  body > header:not([role="banner"])::after, body > div > header:not([role="banner"])::after,  
+  body > footer:not([role="contentinfo"])::after, body > div > footer:not([role="contentinfo"])::after, 
+  section [role="banner"]::after, section [role="contentinfo"]::after, 
+  article [role="banner"]::after, article [role="contentinfo"]::after, 
+  aside [role="banner"]::after, aside [role="contentinfo"]::after, 
+  #main:not(main)::after, 
+  .main:not(main)::after, 
+  #main-content:not(main)::after, 
+  .main-content:not(main)::after, 
+  #page-content:not(main)::after, 
+  .page-content:not(main)::after, 
+  [align]::after, [alink]::after, [background]::after, 
+  [bgcolor]::after, [border]::after, [clear]::after, 
+  [height]::after, [hspace]::after, [link]::after, 
+  [nowrap]::after, [start]::after, [vlink]::after, 
+  [vspace]::after, 
+  script[language]::after, 
+  table[summary]::after, 
+  ol > *:not(li)::after, 
+  ul > *:not(li)::after, 
+  dl > *:not(dt):not(dd)::after, 
+  dt + *:not(dd)::after, 
+  abbr div::after, b div::after, i div::after, span div::after, em div::after, 
+  strong div::after, small div::after, cite div::after, q div::after, code div::after, 
+  label div::after,
+  [tabindex]:not([tabindex="0"]):not([tabindex="-1"])::after, 
+  li.divider:not([role="separator"])::after, li:empty:not([role="separator"])::after, 
+  li.dropdown-header::after,
+  .btn:not(button):not([href])::after, 
+  li.disabled > a[href]:not([tabindex="-1"])::after,
+  li.disabled > button:not([disabled])::after, 
+  a.disabled[href]:not([tabindex="-1"])::after,
+  button.disabled:not([disabled])::after, 
+  [data-toggle="dropdown"]:not([aria-haspopup])::after
+  {
+     display: inline-block !important;
+     background: #dc143c !important;
+     padding: 0.25em !important;
+     font-family: 'comic sans ms', cursive !important;
+     color: #fff !important;
+     font-size: 14px !important;
+     text-shadow: none !important;
+     font-weight: normal !important;
+     font-style: normal !important;
+  }
+  
+  /**
+  * Button and hyperlink errors
+  ----------------------------------------------------------------------
+  */
+  
+  a:not([href])::after {
+     content: 'Do you mean for this to be a link or a <button>? It does not link to anything!' !important;
+  }
+  
+  a[href=""]::after, a[href$="#"]::after, a[href^="javascript"]::after {
+     content: 'Do you mean for this to be a <button>? It is a link that does not go anywhere!' !important;
+  }
+  
+  .button:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"])::after,
+  .btn:not(button):not([role="button"]):not([type="button"]):not([type="submit"]):not([type="reset"])::after, 
+  a[class*="button"]:not([role="button"])::after {
+     content: 'If you are going to make it look like a button, make it a button, dammit!' !important;
+  }
+  
+  .button:not(a):not(button):not(input):not([tabindex])::after, 
+  .btn:not(a):not(button):not(input):not([tabindex])::after {
+  	content: 'You are not using a standard focusable element for your "button". Can keyboard users focus on it?' !important;
+  }
+  
+  a[role="button"]:not([href*="/"]):not([href*="."]):not([href*="?"])::after, 
+  a[role="button"][href=""]::after, a[role="button"][href$="#"]::after, a[role="button"][href^="javascript"]::after {
+     content: 'Either use a proper href fallback or just use a button element.' !important;
+  }
+  
+  a.button[class*="disabled"]::after,
+  a.disabled::after,  
+  a[class*="button"][class*="disabled"]::after {
+     content: 'You cannot disable a hyperlink. Use a button element with disabled="disabled".' !important; 
+  }
+  
+  [class*="toggle"]:not([aria-pressed]) {
+  	content: 'If it is toggleable, you should supply an aria-pressed attribute.' !important;
+  }
+  
+  form button:not([type])::after {
+  	content: 'Is this a submit button, a reset button or just a button? Use type="submit", type="reset" or type="button".' !important;
+  }
+  
+  a:empty:not([aria-label]):not([aria-labelledby])::after, 
+  button:empty:not([aria-label]):not([aria-labelledby])::after, 
+  button:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt])::after, 
+  a:not([aria-label]):not([aria-labelledby]) img:only-child:not([alt])::after {
+  	content: 'All buttons and links should have text content, an image with alt text or an ARIA label.' !important;
+  }
+  
+  figcaption::after {
+  	content: '<figcaption>s must belong to parent <figure>s.' !important;
+  }
+  
+  figure figcaption::after {
+  	content: '' !important;
+  	display: none !important;
+  }
+  
+  /**
+  * Form errors
+  ----------------------------------------------------------------------
+  */
+  
+  form:not([action])::after {
+  	content: 'Forms must have action attributes.' !important;
+  }
+  
+  fieldset > *:first-child:not(legend)::after {
+  	content: 'Place a legend as the first element in this fieldset.' !important;
+  }
+  
+  button.disabled:not([disabled]):not([readonly])::after {
+  	content: 'Use a disabled or readonly attribute on this button.' !important;
+  }
+  
+  /**
+  * Deprecated, obsolete and proprietary elements
+  ----------------------------------------------------------------------
+  */
+  
+  acronym::after, applet::after, basefont::after, big::after, center::after, dir::after, 
+  font::after, frame::after, frameset::after, isindex::after, listing::after, menu::after, multicol::after, 
+  plaintext::after, strike::after, u::after, xmp::after, bgsound::after, blink::after, comment::after, 
+  embed::after, marquee::after, nobr::after, noembed::after, wbr::after {
+  	content: 'This element is deprecated, non-standard or obsolete.' !important;
+  }
+  
+  /**
+  * Empty elements
+  ----------------------------------------------------------------------
+  */
+  
+  *:empty:not(script):not(input):not(br):not(img):not(link):not(hr):not(embed):not(area):not(command):not(col):not(param):not(source):not(track):not(wbr):not(base):not(keygen)::after {
+  	content: 'This element is empty. Why?' !important;
+  }
+  
+  /**
+  * Sectioning elements, headers and footers
+  ----------------------------------------------------------------------
+  */
+  
+  section > section:first-child::after, 
+  article > section:first-child::after, 
+  article > article:first-child::after, 
+  section > article:first-child::after, 
+  section > aside:first-child::after, 
+  aside > aside:first-child::after, 
+  article > aside:first-child::after, 
+  aside > article:first-child::after, 
+  aside > section:first-child::after {
+  	content: 'Sectioning elems are not arbitrary wrappers. Use <div>s here.' !important;
+  }
+  
+  body > header:not([role="banner"])::after, body > div > header:not([role="banner"])::after {
+  	content: 'Use role="banner" on this header element.' !important;
+  }
+  
+  body > footer:not([role="contentinfo"])::after, body > div > footer:not([role="contentinfo"])::after {
+  	content: 'Use role="contentinfo" on this footer element.' !important;
+  }
+  
+  section [role="banner"]::after, section [role="contentinfo"]::after, 
+  article [role="banner"]::after, article [role="contentinfo"]::after, 
+  aside [role="banner"]::after, aside [role="contentinfo"]::after {
+  	content: 'Do not put [role="banner"] or [role="contentinfo"] inside a subsection.' !important;
+  }
+  
+  #main:not(main)::after, 
+  .main:not(main)::after, 
+  #main-content:not(main)::after, 
+  .main-content:not(main)::after, 
+  #page-content:not(main)::after, 
+  .page-content:not(main)::after {
+  	content: 'Use the standard <main> element to mark up the main part of your page.' !important;
+  }
+  
+  /**
+  * Bad attribute usage
+  ----------------------------------------------------------------------
+  */
+  
+  [align]::after, [alink]::after, [background]::after, [bgcolor]::after, [border]::after, [clear]::after, [height]::after, [hspace]::after, [link]::after, [nowrap]::after, [start]::after, [vlink]::after, [vspace]::after {
+  	content: 'You are using a deprecated attribute. Use CSS instead.' !important;
+  }
+  
+  script[language]::after {
+  	content: 'The language attribute is superceded by type. Use type.' !important;
+  }
+  
+  table[summary]::after {
+  	content: 'The summary attribute is deprecated. Perhaps use the <caption> element.' !important;
+  }
+  
+  /**
+  * List errors
+  ----------------------------------------------------------------------
+  */
+  
+  ol > *:not(li)::after, 
+  ul > *:not(li)::after {
+  	content: 'Only <li> can be a direct child of <ul> or <ol>.' !important;
+  }
+  
+  dl > *:not(dt):not(dd)::after {
+  	content: 'This element does not belong directly inside a definition list.' !important;
+  }
+  
+  dt + *:not(dd)::after {
+  	content: 'Definitions must follow definition titles.' !important;
+  }
+  
+  /**
+  * <div>s in the wrong places
+  ----------------------------------------------------------------------
+  */
+  
+  abbr div::after, b div::after, i div::after, span div::after, em div::after, 
+  strong div::after, small div::after, cite div::after, q div::after, code div::after, 
+  label div::after {
+  	content: 'Do not put <div>s inside inline elements.' !important;
+  }
+  
+  /**
+  * Crazy tabindexing
+  ----------------------------------------------------------------------
+  */
+  
+  [tabindex]:not([tabindex="0"]):not([tabindex="-1"])::after {
+  	content: 'Do not disrupt the natural tab order.' !important;
+  }
+  
+  /* Boot Crap (specific to Twitter BootStrap class misuse)
+  -----------------------------------------------------------------------------*/
+  
+  /* Don't use list elements to divide up list elements. 
+  Use a class-based style on the preceeding or proceeding element or use role="separator" 
+  on the item in question */
+  
+  li.divider:not([role="separator"])::after, li:empty:not([role="separator"])::after {
+  	content: 'Do not use list items to divide up lists unless they have role = separator' !important;
+  }
+  
+  /* For obvious reasons, a header for a list should not be an item in that list. 
+  Make two lists! */
+  
+  li.dropdown-header::after {
+  	content: 'Do not use list items as headers for lists, obvs' !important;
+  }
+  
+  /* Only <button>s and, to a lesser extent, <a>s WITH HREFS are keyboard functional as "buttons" */
+  
+  .btn:not(button):not([href])::after {
+  	content: 'This is not an accessible control. Use a <button> or a <a> with href.' !important;
+  }
+  
+  /* Disabled links and buttons should be disabled correctly */
+  
+  li.disabled > a[href]:not([tabindex="-1"])::after,
+  li.disabled > button:not([disabled])::after, 
+  a.disabled[href]::after,
+  button.disabled:not([disabled])::after {
+  	content: 'Disable buttons with disabled attr and links by removing href' !important;
+  }
+  
+  /* The submenu should be indicated with aria-haspopup */
+  
+  [data-toggle="dropdown"]:not([aria-haspopup])::after {
+  	content: 'Indicate the hidden menu with aria-haspopup' !important;
+  }
+  
+  
+}
+
+
