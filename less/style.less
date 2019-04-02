@@ -64,7 +64,7 @@
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
 // @version 1.0.3
-// @desc.   CSS voor breadcrumb; hover op menu aangepast.
+// @desc.   single.php toegevoegd.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
@@ -240,12 +240,20 @@ body {
 
 a {
 	color: #0085da;
-	text-decoration: none;
+//	text-decoration: none;
 }
 
 a:focus,
 a:hover {
 	color: #000;
+	text-decoration: underline;
+}
+
+.site-header,
+nav {
+  a {
+    text-decoration: none;
+  }
 }
 
 p {
@@ -938,7 +946,7 @@ th {
 
 /* Titles
 --------------------------------------------- */
-
+/*
 .archive-title {
 	font-size: 24px;
 	font-size: 2.4rem;
@@ -948,6 +956,7 @@ th {
 	font-size: 36px;
 	font-size: 3.6rem;
 }
+*/
 
 .entry-title a,
 .sidebar .widget-title a {
@@ -1186,16 +1195,31 @@ div .book-featured-text-banner {
 	border-bottom: 1px solid #000;
 }
 
+.page,
 .archive,
 .single {
   
+  .breadcrumb,
+  .entry-content,
   .content {
-    max-width: 1000px;
+    max-width: @maxcontentwidth;
     margin-left: auto;
     margin-right: auto;
     float: none;
   }
+}
+.home {
+  .breadcrumb,
+  .entry-content,
+  .content {
+    max-width: none;
+  }
+}
 
+
+.archive,
+.single {
+  
   @media only screen and (min-width: @mx980px ) {
     
     .flex {
@@ -1263,6 +1287,14 @@ div .book-featured-text-banner {
         }
       }
     }
+
+    &.post-type-archive-teamleden {
+      article,
+      section {
+              
+      }  
+    }  
+    
   }
   
 }
@@ -1283,9 +1315,18 @@ div .book-featured-text-banner {
     float: left;
     margin-right: 1em;
   }
+}
+
+.page,
+.single {
   .entry-content {
     overflow: hidden;
     margin-bottom: 2em;
+
+    @media only screen and (min-width: ( @maxcontentwidth ) ) {
+      min-height: 14em;
+    }
+    
   }
 }
 
@@ -1293,6 +1334,15 @@ div .book-featured-text-banner {
   
   .content-sidebar-wrap {
     background: @lichtblauw;
+    background-image: url('images/discpl-logo-bg-01.svg');
+    background-position: 90% 4em;
+    background-repeat: no-repeat;
+
+    .entry {
+      a {
+        color: @txt;
+      }
+    }
     
     .breadcrumb {
       background: @lichtblauw;
@@ -1308,74 +1358,31 @@ div .book-featured-text-banner {
   #genesis-content {
     position: relative;
   }
+
 }
+
+
 
 .cta {
   text-align: center;
-  float: right; 
-  position: relative;
   display: block;
   margin: 2em 0;
+  width: @cirkelgrootte;
+  float: right;
 
-
-  .circle-wrapper {
-    background: @donkerblauw;
-    border: 5px solid @donkerblauw;
+  @media only screen and (max-width: 500px ) {
+    width: ( @cirkelgrootte * .65 );
+    font-size: 65%;
+    margin-left: 1em;
   }
-    
 
-  @media only screen and (max-width: @mx980px ) {
+  @media only screen and (min-width: ( @maxcontentwidth + @cirkelgrootte + 20 ) ) {
+    position: absolute;
+    z-index: 999;
+    right: 0;
+    margin-right: ( @cirkelgrootte * -1.1 );
   }
   
-  @media only screen and (min-width: @mx980px ) {
-
-    &:after {
-      display: block;
-      padding-bottom: 100%;
-      width: 100%;
-      height: 0;
-      border-radius: 50%;
-      content: "";
-    }
-
-    .circle-inner {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .circle-wrapper {
-      display: table;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      transform: translateX( -300px ) translatey( -150px );
-    }
-
-    .circle-content {
-      display: table-cell;
-      padding: 1em;
-      vertical-align: middle;
-      .fontsize( 22 );
-      line-height: 1.35;
-    }
-
-    a {
-      font-size: 80%;
-      font-weight: normal;
-      border: 5px solid @donkerblauw;
-    }
-    
-  }
-
-  p {
-    margin: 0;
-  }
-
-
   &, *, a {
     color: @wit;
     font-weight: bold;
@@ -1383,21 +1390,57 @@ div .book-featured-text-banner {
   a {
     display: inline-block;
   }
+  p {
+    margin-bottom: 0;
+  }
 
-  &:hover {
-    .circle-wrapper {
-      background: @wit;
-      a {
-        background: @donkerblauw;
-        color: @wit;
-      }
+
+  .outer {
+    position: relative;
+    background: @donkerblauw;
+    border: 5px solid @donkerblauw;
+    border-radius: 50%;
+    
+    &:before {
+      display: block;
+      content: "";
+      width: 100%;
+      padding-top: (1 / 1) * 100%;
     }
-    &, *, a {
-      color: @txt;
+    > .inner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;      
+      
+      p {
+        flex: 1;
+      }
     }
   }
 
 }
+  
+
+.home {
+  .entry-content {
+    position: relative;
+
+    @media only screen and (min-width: ( @maxcontentwidth + @cirkelgrootte + 20 ) ) {
+      .cta {
+        position: absolute;
+        z-index: 999;
+        right: 1em;
+        margin-right: 1em;
+      }
+    }
+  }
+}  
+
 
 .archive {
   .cta {

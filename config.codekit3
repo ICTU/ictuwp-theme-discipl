@@ -622,6 +622,14 @@
 		"oT": 1,
 		"q": 100
 		},
+	"/single.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/single.php",
+		"oF": 0
+		},
 	"/style.css": {
 		"aP": 1,
 		"bl": 0,
@@ -631,6 +639,14 @@
 		"oAP": "/style-min.css",
 		"oF": 0,
 		"oS": 3
+		},
+	"/style.css.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/style.css.map",
+		"oF": 0
 		},
 	"/xml/author-pro.xml": {
 		"cB": 0,

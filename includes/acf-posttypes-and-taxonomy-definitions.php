@@ -8,7 +8,7 @@
 // * @license GPL-2.0+
 // * @package discipl-2019
 // * @version 1.0.3
-// * @desc.   CSS voor breadcrumb; hover op menu aangepast.
+// * @desc.   single.php toegevoegd.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 //========================================================================================================
@@ -42,6 +42,22 @@ if( function_exists('acf_add_local_field_group') ):
   			'prepend' => '',
   			'append' => '',
   			'maxlength' => 150,
+  		),
+  		array(
+  			'key' => 'field_5c458d31a780e',
+  			'label' => 'E-mailadres',
+  			'name' => 'teammember_email',
+  			'type' => 'text',
+  			'instructions' => 'E-mailadres',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
   		),
   		array(
   			'key' => 'field_5c61bd31e780e',

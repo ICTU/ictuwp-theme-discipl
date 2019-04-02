@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.3
-// * @desc.   CSS voor breadcrumb; hover op menu aangepast.
+// * @version 1.0.4
+// * @desc.   single.php toegevoegd.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -44,7 +44,7 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '1.0.3' );
+define( 'CHILD_THEME_VERSION', '1.0.4' );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
@@ -318,7 +318,7 @@ add_action( 'genesis_entry_content', 'discipl_frontend_add_contentwrapper_close'
 
 function discipl_frontend_add_contentwrapper_open() {
   
-  if ( 'page'    == get_post_type() ) {
+  if ( 'page'    == get_post_type() && ( is_home() || is_front_page() ) ) {
     echo '<div class="content-center">';
   }
   
@@ -326,7 +326,7 @@ function discipl_frontend_add_contentwrapper_open() {
 
 function discipl_frontend_add_contentwrapper_close() {
   
-  if ( 'page'    == get_post_type() ) {
+  if ( 'page'    == get_post_type() && ( is_home() || is_front_page() ) ) {
     echo '</div>'; // class="content-center">';
   }
   
@@ -532,6 +532,7 @@ function discipl_frontend_add_page_content() {
       				$section_title        = get_the_title( $p->ID );
       				$section_text         = get_field( 'teammember_title', $p->ID);
       				$website              = get_field( 'teammember_website_url', $p->ID);
+      				$emailadres           = get_field( 'teammember_email', $p->ID);
       				$github               = get_field( 'teammember_github_url', $p->ID);
       				$linkedin             = get_field( 'teammember_linkedin_url', $p->ID);
       				$twitter              = get_field( 'teammember_twitter_url', $p->ID);
@@ -690,7 +691,7 @@ if (! function_exists( 'dovardump' ) ) {
       $endtring       = '</div>';
       
       if ( $context ) {
-
+        error_log( 'context ' . $context );
         $contextstring = '<p>Vardump ' . $context . '</p>';        
       }
       
@@ -762,13 +763,24 @@ function discipl_frontend_add_post_content( ) {
 
 		$teammember_title     = get_field( 'teammember_title', get_the_id() );
 		$website              = get_field( 'teammember_website_url', get_the_id() );
+		$emailadres           = get_field( 'teammember_email', get_the_id() );
 		$github               = get_field( 'teammember_github_url', get_the_id() );
 		$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
 		$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
 		$section_title        = get_the_title();
 
-    if ( $teammember_title ) {
-      echo '<p>' . $teammember_title . '</p>';
+    if ( $teammember_title || $emailadres ) {
+      echo '<p>';
+      if ( $teammember_title ) {
+        echo $teammember_title;
+      }
+      if ( $emailadres ) {
+        if ( $teammember_title ) {
+          echo '<br>';
+        }
+        echo '<a href="mailto:' . $emailadres . '">' . $emailadres . '</a>';
+      }
+      echo '</p>';
     }
 
     echo get_the_excerpt();
@@ -888,15 +900,26 @@ function wbvb_modernista_post_meta($post_meta) {
 
   		$teammember_title     = get_field( 'teammember_title', get_the_id() );
 			$website              = get_field( 'teammember_website_url', get_the_id() );
+  		$emailadres           = get_field( 'teammember_email', get_the_id() );
 			$github               = get_field( 'teammember_github_url', get_the_id() );
 			$linkedin             = get_field( 'teammember_linkedin_url', get_the_id() );
 			$twitter              = get_field( 'teammember_twitter_url', get_the_id() );
 			$section_title        = get_the_title();
 
-      if ( $teammember_title ) {
-        echo '<p>' . $teammember_title . '</p>';
+      if ( $teammember_title || $emailadres ) {
+        echo '<p>';
+        if ( $teammember_title ) {
+          echo $teammember_title;
+        }
+        if ( $emailadres ) {
+          if ( $teammember_title ) {
+            echo '<br>';
+          }
+          echo '<a href="mailto:' . $emailadres . '">' . $emailadres . '</a>';
+        }
+        echo '</p>';
       }
-
+      
       if ( $website || $github || $linkedin || $twitter) {
 
         $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
@@ -938,7 +961,12 @@ function discipl_frontend_add_cta_button() {
 	$discipl_cta_meer_weten    = get_field('discipl_cta_meer_weten', 'option');
   
   if ( $discipl_cta_meer_weten ) {
-    echo '<div class="cta"><div class="circle-inner"><div class="circle-wrapper"><div class="circle-content">' . wpautop( $discipl_cta_meer_weten ) . '</div></div></div></div>';
+    echo '<div class="cta">
+            <div class="outer">
+              <div class="inner">' . wpautop( $discipl_cta_meer_weten ) . '</div>
+            </div>
+          </div>';
+
   }
   
 }

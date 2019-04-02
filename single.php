@@ -1,7 +1,7 @@
 <?php
 
 /**
-// * discipl.org WP theme (2019) - page.php
+// * discipl.org WP theme (2019) - single.php
 // * ----------------------------------------------------------------------------------
 // * This file adds the front page to the ICTU Theme discipl.org (2019) theme.
 // * ----------------------------------------------------------------------------------
