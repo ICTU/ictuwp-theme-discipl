@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.4
-// * @desc.   single.php toegevoegd.
+// * @version 1.0.5
+// * @desc.   HTML-filter op tekst in blokken weggehaald.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -44,7 +44,7 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '1.0.4' );
+define( 'CHILD_THEME_VERSION', '1.0.5' );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
@@ -371,18 +371,21 @@ function discipl_frontend_add_flexwrapper_close() {
 
 //========================================================================================================
 
-
 add_action( 'genesis_entry_content', 'discipl_frontend_add_page_content', 12 );
 
 
 // HTML output voor de verschillende blokken
 
 function discipl_frontend_add_page_content() {
-  global $post;
 
-  $sectioncounter = 0;
-
-  if ( 'page'    == get_post_type() ) {
+	global $post;
+	global $allowedtags;
+	
+	dovardump( $allowedtags );
+	
+	$sectioncounter = 0;
+	
+	if ( 'page'    == get_post_type() ) {
     
     $theid          = get_the_ID();
     $contentblokken = get_field( 'discipl_contentblocks', $theid );
@@ -399,58 +402,57 @@ function discipl_frontend_add_page_content() {
         // - teamblock : Block met team-info
         // - porfolioblock : Projecten
 
-				$type_block             = get_sub_field('soort_blok');
-				$section_title          = get_sub_field('fotoblock_title');
-        $title_id               = sanitize_title( $section_title . '-' . $sectioncounter );
+		$type_block             = get_sub_field('soort_blok');
+		$section_title          = get_sub_field('fotoblock_title');
+		$title_id               = sanitize_title( $section_title . '-' . $sectioncounter );
 
-
-        if ( 'tekst_foto' == $type_block ) {
-
-          $size                   = 'fotoblok';
-          
-  				$fotoblock_text         = get_sub_field('fotoblock_text');
-  				$image                  = get_sub_field('fotoblock_image');
-  				$fotoblock_bgcolor      = get_sub_field('fotoblock_bgcolor');
-  				$fotoblock_alignment    = get_sub_field('fotoblock_alignment');
-  				$fotoblock_logovariant  = get_sub_field('fotoblock_logovariant');
-
-
-          echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
-          echo '<div class="wrap">';
-
-          if ( 'align-left' == $fotoblock_alignment ) {
-            // foto aan de linkerkant, tekst rechts
-
-            if ( $image ) {
-              echo '<div class="quote-photo">';
-              echo wp_get_attachment_image( $image['ID'], $size );
-              echo '</div>'; // .quote-photo
-            }
-            
-            echo '<div class="title-text">';
-            echo '<div class="flex-text">';
-            echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-            echo sanitize_textarea_field( $fotoblock_text );
-            echo '</div>'; // .flex-text
-            echo '</div>'; // .title-text
-            
-          }
-          else {
-            // foto aan de rechterkant, tekst links
-            echo '<div class="title-text">';
-            echo '<div class="flex-text">';
-            echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-            echo sanitize_textarea_field( $fotoblock_text );
-            echo '</div>'; // .flex-text
-            echo '</div>'; // .title-text
-
-            if ( $image ) {
-              echo '<div class="quote-photo">';
-              echo wp_get_attachment_image( $image['ID'], $size );
-              echo '</div>'; // .quote-photo
-            }
-            
-          }
+		if ( 'tekst_foto' == $type_block ) {
+			
+			$size                   = 'fotoblok';
+			
+			$fotoblock_text         = get_sub_field('fotoblock_text');
+			$image                  = get_sub_field('fotoblock_image');
+			$fotoblock_bgcolor      = get_sub_field('fotoblock_bgcolor');
+			$fotoblock_alignment    = get_sub_field('fotoblock_alignment');
+			$fotoblock_logovariant  = get_sub_field('fotoblock_logovariant');
+			
+			
+			echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
+			echo '<div class="wrap">';
+			
+			if ( 'align-left' == $fotoblock_alignment ) {
+				// foto aan de linkerkant, tekst rechts
+				
+				if ( $image ) {
+				echo '<div class="quote-photo">';
+				echo wp_get_attachment_image( $image['ID'], $size );
+				echo '</div>'; // .quote-photo
+				}
+				
+				echo '<div class="title-text">';
+				echo '<div class="flex-text">';
+				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+				echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
+				echo '</div>'; // .flex-text
+				echo '</div>'; // .title-text
+				
+			}
+			else {
+				// foto aan de rechterkant, tekst links
+				echo '<div class="title-text">';
+				echo '<div class="flex-text">';
+				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+				echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
+				echo '</div>'; // .flex-text
+				echo '</div>'; // .title-text
+				
+				if ( $image ) {
+					echo '<div class="quote-photo">';
+					echo wp_get_attachment_image( $image['ID'], $size );
+					echo '</div>'; // .quote-photo
+				}
+				
+			}
 
           echo '</div>';  // .wrap
           echo '</section>';

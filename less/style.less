@@ -1,4 +1,4 @@
-@versie: '1.0.3';
+@versie: '1.0.5';
 /*!
 	Theme Name: ICTU Theme discipl.org (2019)
 	Theme URI: https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
@@ -6,7 +6,7 @@
 	Author: StudioPress / Paul van Buuren
 	Author URI: https://wbvb.nl/
 
-	Version: 1.0.3
+	Version: 1.0.5
 
 	Tags: one-column, two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-colors, custom-menu, e-commerce, featured-images, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
 
@@ -63,8 +63,8 @@
 // @package discipl-2019
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
-// @version 1.0.3
-// @desc.   single.php toegevoegd.
+// @version 1.0.5
+// @desc.   HTML-filter op tekst in blokken weggehaald.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
@@ -1322,6 +1322,10 @@ div .book-featured-text-banner {
   .entry-content {
     overflow: hidden;
     margin-bottom: 2em;
+    
+    a {
+	    color: @txt;
+    }
 
     @media only screen and (min-width: ( @maxcontentwidth ) ) {
       min-height: 14em;

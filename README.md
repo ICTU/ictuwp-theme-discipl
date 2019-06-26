@@ -18,9 +18,10 @@ De homepage (en andere pagina's) worden aangevuld met ACF-velden.
 * ..
 
 ## Current version:
-1.0.4 - CSS voor breadcrumb; hover op menu aangepast.
+1.0.5 - CSS voor breadcrumb; hover op menu aangepast.
 
 ## Version history
+* 1.0.5 - HTML-filter op tekst in blokken weggehaald.
 * 1.0.4 - single.php toegevoegd.
 * 1.0.3 - CSS voor breadcrumb; hover op menu aangepast.
 * 1.0.2 - Bugfixes css en functions.php.
