@@ -8,7 +8,6 @@ echo 'Distribute discipl.org theme';
 
 # clear the log file
 > '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/development/wp-content/debug.log'
-> '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/gc_live_import/wp-content/debug.log'
 
 # copy to temp dir
 rsync -r -a --delete '/shared-paul-files/Webs/git-repos/discipl.org-wordpress-theme-2019/' '/shared-paul-files/Webs/temp/'
@@ -57,22 +56,18 @@ rsync -r -a --delete '/shared-paul-files/Webs/temp/' '/shared-paul-files/Webs/IC
 find . -name "*.map" -type f -delete;
 
 
-# Naar GC import
-
-rsync -r -a --delete '/shared-paul-files/Webs/temp/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/gc_live_import/wp-content/themes/discipl-2019/'
-
 # remove temp dir
 rm -rf '/shared-paul-files/Webs/temp/'
 rm -rf '/shared-paul-files/Webs/temp-languages/'
 
 # Naar Eriks server
-rsync -r -a  --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/gc_live_import/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/live-dutchlogic/wp-content/themes/discipl-2019/'
+rsync -r -a  --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/development/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/live-dutchlogic/wp-content/themes/discipl-2019/'
 
 # en een kopietje naar Sentia accept
-rsync -r -a --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/gc_live_import/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/sentia/accept/www/wp-content/themes/discipl-2019/'
+rsync -r -a --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/development/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/sentia/accept/www/wp-content/themes/discipl-2019/'
 
 # en een kopietje naar Sentia live
-rsync -r -a --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/gc_live_import/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/sentia/live/www/wp-content/themes/discipl-2019/'
+rsync -r -a --delete '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/development/wp-content/themes/discipl-2019/' '/shared-paul-files/Webs/ICTU/Gebruiker Centraal/sentia/live/www/wp-content/themes/discipl-2019/'
 
 
 echo 'Ready';

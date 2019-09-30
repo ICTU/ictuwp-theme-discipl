@@ -1,4 +1,4 @@
-@versie: '1.0.5';
+@versie: '1.0.6a';
 /*!
 	Theme Name: ICTU Theme discipl.org (2019)
 	Theme URI: https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
@@ -6,7 +6,7 @@
 	Author: StudioPress / Paul van Buuren
 	Author URI: https://wbvb.nl/
 
-	Version: 1.0.5
+	Version: 1.0.6a
 
 	Tags: one-column, two-columns, left-sidebar, right-sidebar, accessibility-ready, custom-colors, custom-menu, e-commerce, featured-images, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
 
@@ -63,8 +63,8 @@
 // @package discipl-2019
 // @author  StudioPress / Paul van Buuren
 // @license GPL-2.0+
-// @version 1.0.5
-// @desc.   HTML-filter op tekst in blokken weggehaald.
+// @version 1.0.6a
+// @desc.   Genesis update. Teampagina-template verbeterd.
 // @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
 
 
@@ -1368,65 +1368,63 @@ div .book-featured-text-banner {
 
 
 .cta {
-  text-align: center;
-  display: block;
-  margin: 2em 0;
-  width: @cirkelgrootte;
-  float: right;
+	text-align: center;
+	display: block;
+	margin: 2em 0;
+	width: @cirkelgrootte;
+	float: right;
+	
+	@media only screen and (max-width: 500px ) {
+		width: ( @cirkelgrootte * .65 );
+		font-size: 65%;
+		margin-left: 1em;
+	}
+	
+	@media only screen and (min-width: ( @maxcontentwidth + @cirkelgrootte + 20 ) ) {
+		position: absolute;
+		z-index: 999;
+		right: 0;
+		margin-right: ( @cirkelgrootte * -1.1 );
+	}
+	
+	&, *, a {
+		color: @wit !important;
+		font-weight: bold;
+	}
+	a {
+		display: inline-block;
+	}
+	p {
+		margin-bottom: 0;
+	}
 
-  @media only screen and (max-width: 500px ) {
-    width: ( @cirkelgrootte * .65 );
-    font-size: 65%;
-    margin-left: 1em;
-  }
-
-  @media only screen and (min-width: ( @maxcontentwidth + @cirkelgrootte + 20 ) ) {
-    position: absolute;
-    z-index: 999;
-    right: 0;
-    margin-right: ( @cirkelgrootte * -1.1 );
-  }
-  
-  &, *, a {
-    color: @wit;
-    font-weight: bold;
-  }
-  a {
-    display: inline-block;
-  }
-  p {
-    margin-bottom: 0;
-  }
-
-
-  .outer {
-    position: relative;
-    background: @donkerblauw;
-    border: 5px solid @donkerblauw;
-    border-radius: 50%;
-    
-    &:before {
-      display: block;
-      content: "";
-      width: 100%;
-      padding-top: (1 / 1) * 100%;
-    }
-    > .inner {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;      
-      
-      p {
-        flex: 1;
-      }
-    }
-  }
-
+	.outer {
+		position: relative;
+		background: @donkerblauw;
+		border: 5px solid @donkerblauw;
+		border-radius: 50%;
+		
+		&:before {
+			display: block;
+			content: "";
+			width: 100%;
+			padding-top: (1 / 1) * 100%;
+		}
+		> .inner {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;      
+			
+			p {
+				flex: 1;
+			}
+		}
+	}
 }
   
 
@@ -1528,11 +1526,14 @@ div .book-featured-text-banner {
 	transition:         all .3s ease-in-out;
 }
 
-.site-title {
-	font-size: 30px;
-	font-size: 3rem;
-	font-weight: 900;
-	line-height: 1.2;
+.title-area {
+	p.site-title,
+	h1.site-title {
+		font-size: 30px;
+		font-size: 3rem;
+		font-weight: 900;
+		line-height: 1.2;
+	}
 }
 
 .site-title a,
@@ -1712,9 +1713,10 @@ div .book-featured-text-banner {
 }
 
 .home {
-  .menu-item-home.current-menu-item {
-    .visuallyhidden();    
-  }
+	.entry-header,
+	.menu-item-home.current-menu-item {
+		.visuallyhidden();    
+	}
 }
 
 .genesis-nav-menu a:focus,

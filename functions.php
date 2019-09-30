@@ -8,8 +8,8 @@
 // * @author  StudioPress / Paul van Buuren
 // * @license GPL-2.0+
 // * @package discipl-2019
-// * @version 1.0.5
-// * @desc.   HTML-filter op tekst in blokken weggehaald.
+// * @version 1.0.6a
+// * @desc.   Genesis update. Teampagina-template verbeterd.
 // * @link    https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019
  */
 
@@ -33,6 +33,11 @@ function discipl_localization_setup(){
 
 //========================================================================================================
 
+//* Remove the edit link
+add_filter ( 'genesis_edit_post_link' , '__return_false' );
+
+//========================================================================================================
+
 // Add the theme helper functions.
 include_once( get_stylesheet_directory() . '/lib/helper-functions.php' );
 
@@ -44,7 +49,7 @@ include_once( get_stylesheet_directory() . '/lib/output.php' );
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'ICTU Theme discipl.org (2019)', 'discipl' ) );
 define( 'CHILD_THEME_URL', 'https://github.com/paulvanbuuren/discipl.org-wordpress-theme-2019' );
-define( 'CHILD_THEME_VERSION', '1.0.5' );
+define( 'CHILD_THEME_VERSION', '1.0.6a' );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Footerwidgets beter uitgelijnd + blokken op homepage op 4-koloms breedte." );
 
 $sharedfolder = get_stylesheet_directory();
@@ -381,259 +386,260 @@ function discipl_frontend_add_page_content() {
 	global $post;
 	global $allowedtags;
 	
-	dovardump( $allowedtags );
+//	dovardump( $allowedtags );
 	
 	$sectioncounter = 0;
 	
 	if ( 'page'    == get_post_type() ) {
-    
-    $theid          = get_the_ID();
-    $contentblokken = get_field( 'discipl_contentblocks', $theid );
-
-    if( have_rows('discipl_contentblocks', $theid ) ):
-
-      while( have_rows('discipl_contentblocks', $theid ) ): the_row(); 
-
-        $sectioncounter++; // om sowieso een unieke ID te kunnen maken
-
-        // vier soorten blokken mogelijk:
-        // - tekst_foto : Tekst met foto
-        // - driekoloms : Driekoloms tekst
-        // - teamblock : Block met team-info
-        // - porfolioblock : Projecten
-
-		$type_block             = get_sub_field('soort_blok');
-		$section_title          = get_sub_field('fotoblock_title');
-		$title_id               = sanitize_title( $section_title . '-' . $sectioncounter );
-
-		if ( 'tekst_foto' == $type_block ) {
-			
-			$size                   = 'fotoblok';
-			
-			$fotoblock_text         = get_sub_field('fotoblock_text');
-			$image                  = get_sub_field('fotoblock_image');
-			$fotoblock_bgcolor      = get_sub_field('fotoblock_bgcolor');
-			$fotoblock_alignment    = get_sub_field('fotoblock_alignment');
-			$fotoblock_logovariant  = get_sub_field('fotoblock_logovariant');
-			
-			
-			echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
-			echo '<div class="wrap">';
-			
-			if ( 'align-left' == $fotoblock_alignment ) {
-				// foto aan de linkerkant, tekst rechts
+	    
+	    $theid          = get_the_ID();
+	    $contentblokken = get_field( 'discipl_contentblocks', $theid );
+	
+	    if( have_rows('discipl_contentblocks', $theid ) ):
+	
+	      while( have_rows('discipl_contentblocks', $theid ) ): the_row(); 
+	
+	        $sectioncounter++; // om sowieso een unieke ID te kunnen maken
+	
+	        // vier soorten blokken mogelijk:
+	        // - tekst_foto : Tekst met foto
+	        // - driekoloms : Driekoloms tekst
+	        // - teamblock : Block met team-info
+	        // - porfolioblock : Projecten
+	
+			$type_block             = get_sub_field('soort_blok');
+			$section_title          = get_sub_field('fotoblock_title');
+			$title_id               = sanitize_title( $section_title . '-' . $sectioncounter );
+	
+			if ( 'tekst_foto' == $type_block ) {
 				
-				if ( $image ) {
-				echo '<div class="quote-photo">';
-				echo wp_get_attachment_image( $image['ID'], $size );
-				echo '</div>'; // .quote-photo
+				$size                   = 'fotoblok';
+				
+				$fotoblock_text         = get_sub_field('fotoblock_text');
+				$image                  = get_sub_field('fotoblock_image');
+				$fotoblock_bgcolor      = get_sub_field('fotoblock_bgcolor');
+				$fotoblock_alignment    = get_sub_field('fotoblock_alignment');
+				$fotoblock_logovariant  = get_sub_field('fotoblock_logovariant');
+				
+				
+				echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
+				echo '<div class="wrap">';
+				
+				if ( 'align-left' == $fotoblock_alignment ) {
+					// foto aan de linkerkant, tekst rechts
+					
+					if ( $image ) {
+						echo '<div class="quote-photo">';
+						echo wp_get_attachment_image( $image['ID'], $size );
+						echo '</div>'; // .quote-photo
+					}
+					
+					echo '<div class="title-text">';
+					echo '<div class="flex-text">';
+					echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+					echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
+					echo '</div>'; // .flex-text
+					echo '</div>'; // .title-text
+				
+				}
+				else {
+					// foto aan de rechterkant, tekst links
+					echo '<div class="title-text">';
+					echo '<div class="flex-text">';
+					echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+					echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
+					echo '</div>'; // .flex-text
+					echo '</div>'; // .title-text
+					
+					if ( $image ) {
+						echo '<div class="quote-photo">';
+						echo wp_get_attachment_image( $image['ID'], $size );
+						echo '</div>'; // .quote-photo
+					}
+				
 				}
 				
-				echo '<div class="title-text">';
-				echo '<div class="flex-text">';
-				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-				echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
-				echo '</div>'; // .flex-text
-				echo '</div>'; // .title-text
+				echo '</div>';  // .wrap
+				echo '</section>';
 				
 			}
-			else {
-				// foto aan de rechterkant, tekst links
-				echo '<div class="title-text">';
-				echo '<div class="flex-text">';
-				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-				echo $fotoblock_text; //  sanitize_textarea_field( $fotoblock_text );
-				echo '</div>'; // .flex-text
-				echo '</div>'; // .title-text
+			elseif ( 'driekoloms' == $type_block ) {
 				
-				if ( $image ) {
-					echo '<div class="quote-photo">';
-					echo wp_get_attachment_image( $image['ID'], $size );
-					echo '</div>'; // .quote-photo
+				$section_align        = get_sub_field('kolommen_uitlijning');
+				
+				if ( ! $section_align ) {
+					$section_align = 'align-center';
+				}
+				
+				// min 2, max 3 kolommen
+				if( have_rows('kolommen') ) {
+					
+					echo '<div aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $section_align . '">';
+					echo '<div class="wrap">';
+					echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+					
+					echo '<div class="flex">';
+					
+					while( have_rows('kolommen') ): the_row();
+					
+						$sectioncounter++; // om sowieso een unieke ID te kunnen maken
+						$section_logo         = '';
+						
+						$section_title        = get_sub_field('discipl_column_title');
+						$section_text         = get_sub_field('discipl_column_text');
+						$logovariant          = get_sub_field('discipl_column_logovariant');
+						
+						if ( 'logo_lightblue' == $logovariant ) {
+							$section_logo = 'discipl-logo-lightblue.png';
+						}
+						elseif ( 'logo_violet' == $logovariant ) {
+							$section_logo = 'discipl-logo-violet.png';
+						}
+						elseif ( 'logo_darkblue' == $logovariant ) {
+							$section_logo = 'discipl-logo-darkblue.png';
+						}
+						
+						$title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
+						
+						echo '<section aria-labelledby="' . $title_id . '">';
+						if ( $section_logo ) {
+							echo '<img src="' . RHSWP_THEMEFOLDER . '/images/' . $section_logo . '" alt="" height="120" width="120" class="section-logo" >';
+						}
+						echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
+						echo '<p> ' . $section_text . '</p>';
+						echo '</section>';
+					
+					endwhile;
+					
+					echo '</div>';  // .flex
+					echo '</div>';  // .wrap
+					echo '</div>';  // .wrap
+					
 				}
 				
 			}
+			elseif ( 'teamblock' == $type_block ) {
+				
+				$section_text         = get_sub_field('teaminfo_text');
+				$posts                = get_sub_field('teaminfo_teammembers');
+				
+				echo '<div aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
+				echo '<div class="wrap">';
+				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+				echo '<p> ' . $section_text . '</p>';
+				
+				if( $posts ) {
+					
+					echo '<div class="flex">';
+					
+					foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT);
+						
+						$sectioncounter++; // om sowieso een unieke ID te kunnen maken
+						
+						$section_title        = get_the_title( $p->ID );
+						$section_text         = get_field( 'teammember_title', $p->ID);
+						$website              = get_field( 'teammember_website_url', $p->ID);
+						$emailadres           = get_field( 'teammember_email', $p->ID);
+						$github               = get_field( 'teammember_github_url', $p->ID);
+						$linkedin             = get_field( 'teammember_linkedin_url', $p->ID);
+						$twitter              = get_field( 'teammember_twitter_url', $p->ID);
+						$title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
+						
+						echo '<section aria-labelledby="' . $title_id . '">';
+						
+						
+						if ( ! DISCIPL_IS_ONEPAGER ) {
+							
+							// het is geen one-pager, dus we mogen doorverwijzen naar het item
+							echo '<a href="' . get_permalink( $p->ID ) . '">';
+						}
+						
+						echo get_the_post_thumbnail( $p->ID, 'pasfoto' );
+						echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
+						
+						if ( ! DISCIPL_IS_ONEPAGER ) {
+							echo '</a>';
+						}
+						
+						echo '<p> ' . $section_text . '</p>';
+						
+						if ( $website || $github || $linkedin || $twitter) {
+						
+							$label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
+							echo '<ul aria-label="' . $label . '" class="social-media">';
+							echo discipl_get_url_and_label( $website, 'li', 'website' );
+							echo discipl_get_url_and_label( $github, 'li', 'github' );
+							echo discipl_get_url_and_label( $linkedin, 'li', 'linkedin' );
+							echo discipl_get_url_and_label( $twitter, 'li', 'twitter' );
+							echo '</ul>';
+							
+						}
+						echo '</section>';
+						
+					
+					endforeach;
+					
+					echo '</div>';  // .flex
+					
+				}
+				
+				echo '</div>';  // .wrap
+				echo '</div>';
+				
+			}
+			elseif ( 'porfolioblock' == $type_block ) {
+				
+				$section_text         = get_sub_field('portfolio_description');
+				$posts                = get_sub_field('portfolio_items');
+				
+				echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
+				echo '<div class="wrap">';
+				echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
+				echo '<p> ' . $section_text . '</p>';
+				
+				if( $posts ) {
+					
+					echo '<div class="flex">';
+					
+					foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT);
+					
+						setup_postdata( $p );
+						
+						$sectioncounter++; // om sowieso een unieke ID te kunnen maken
+						$section_title        = get_the_title( $p->ID );
+						$section_description  = get_the_excerpt( $p->ID );
+						
+						$title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
+						
+						echo '<section aria-labelledby="' . $title_id . '">';
+						echo get_the_post_thumbnail( $p->ID, 'projectfoto' );
+						echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
+						echo '<p>' . $section_description . '</p>';
+		
+						if ( ! DISCIPL_IS_ONEPAGER ) {
+						
+							// het is geen one-pager, dus we mogen doorverwijzen naar het item
+							echo '<p class="read-more"><a href="' . get_permalink( $p->ID ) . '">' .  sprintf( __( 'Meer over %s', 'discipl' ), $section_title ) . '</a></p>';
+							
+						}
+						echo '</section>';
+						
+					endforeach;
+					
+					echo '</div>';  // .flex
+					
+				}
+				
+				echo '</div>';  // .wrap
+				echo '</section>';
+				
+			}
+	              
+	      endwhile;
+	      
+	    endif;
 
-          echo '</div>';  // .wrap
-          echo '</section>';
-      
-        }
-        elseif ( 'driekoloms' == $type_block ) {
-
-  				$section_align        = get_sub_field('kolommen_uitlijning');
-  				
-  				if ( ! $section_align ) {
-    				$section_align = 'align-center';
-  				}
-
-          // min 2, max 3 kolommen
-          if( have_rows('kolommen') ) {
-
-            echo '<div aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $section_align . '">';
-            echo '<div class="wrap">';
-            echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-            
-            echo '<div class="flex">';
-            
-            while( have_rows('kolommen') ): the_row();
-
-              $sectioncounter++; // om sowieso een unieke ID te kunnen maken
-      				$section_logo         = '';
-
-      				$section_title        = get_sub_field('discipl_column_title');
-      				$section_text         = get_sub_field('discipl_column_text');
-      				$logovariant          = get_sub_field('discipl_column_logovariant');
-
-      				if ( 'logo_lightblue' == $logovariant ) {
-        				$section_logo = 'discipl-logo-lightblue.png';
-      				}
-      				elseif ( 'logo_violet' == $logovariant ) {
-        				$section_logo = 'discipl-logo-violet.png';
-      				}
-      				elseif ( 'logo_darkblue' == $logovariant ) {
-        				$section_logo = 'discipl-logo-darkblue.png';
-      				}
-
-              $title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
-
-              echo '<section aria-labelledby="' . $title_id . '">';
-              if ( $section_logo ) {
-                echo '<img src="' . RHSWP_THEMEFOLDER . '/images/' . $section_logo . '" alt="" height="120" width="120" class="section-logo" >';
-              }
-              echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
-              echo '<p> ' . $section_text . '</p>';
-              echo '</section>';
-              
-            endwhile;
-          
-            echo '</div>';  // .flex
-            echo '</div>';  // .wrap
-            echo '</div>';  // .wrap
-
-          }
-
-        }
-        elseif ( 'teamblock' == $type_block ) {
-
-  				$section_text         = get_sub_field('teaminfo_text');
-          $posts                = get_sub_field('teaminfo_teammembers');
-
-          echo '<div aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
-          echo '<div class="wrap">';
-          echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-          echo '<p> ' . $section_text . '</p>';
-
-          if( $posts ) {
-
-            echo '<div class="flex">';
-
-            foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT);
-
-              $sectioncounter++; // om sowieso een unieke ID te kunnen maken
-
-      				$section_title        = get_the_title( $p->ID );
-      				$section_text         = get_field( 'teammember_title', $p->ID);
-      				$website              = get_field( 'teammember_website_url', $p->ID);
-      				$emailadres           = get_field( 'teammember_email', $p->ID);
-      				$github               = get_field( 'teammember_github_url', $p->ID);
-      				$linkedin             = get_field( 'teammember_linkedin_url', $p->ID);
-      				$twitter              = get_field( 'teammember_twitter_url', $p->ID);
-              $title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
-
-              echo '<section aria-labelledby="' . $title_id . '">';
-
-
-              if ( ! DISCIPL_IS_ONEPAGER ) {
-                
-                // het is geen one-pager, dus we mogen doorverwijzen naar het item
-                echo '<a href="' . get_permalink( $p->ID ) . '">';
-              }
-
-              echo get_the_post_thumbnail( $p->ID, 'pasfoto' );
-              echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
-
-              if ( ! DISCIPL_IS_ONEPAGER ) {
-                echo '</a>';
-              }
-
-              echo '<p> ' . $section_text . '</p>';
-              
-              if ( $website || $github || $linkedin || $twitter) {
-
-                $label = sprintf( __( 'Links en social media van %s', 'discipl' ), $section_title ); 
-                echo '<ul aria-label="' . $label . '" class="social-media">';
-                echo discipl_get_url_and_label( $website, 'li', 'website' );
-                echo discipl_get_url_and_label( $github, 'li', 'github' );
-                echo discipl_get_url_and_label( $linkedin, 'li', 'linkedin' );
-                echo discipl_get_url_and_label( $twitter, 'li', 'twitter' );
-                echo '</ul>';
-              }
-              echo '</section>';
-
-
-            endforeach;
-
-            echo '</div>';  // .flex
-            
-          }
-
-          echo '</div>';  // .wrap
-          echo '</div>';
-          
-        }
-        elseif ( 'porfolioblock' == $type_block ) {
-
-  				$section_text         = get_sub_field('portfolio_description');
-          $posts                = get_sub_field('portfolio_items');
-
-          echo '<section aria-labelledby="' . $title_id . '" class="' . $type_block . ' ' . $fotoblock_alignment . ' ' . $fotoblock_bgcolor . '">';
-          echo '<div class="wrap">';
-          echo '<h2 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h2>';
-          echo '<p> ' . $section_text . '</p>';
-
-          if( $posts ) {
-
-            echo '<div class="flex">';
-
-            foreach( $posts as $p ): // variable must NOT be called $post (IMPORTANT);
-              
-              setup_postdata( $p );
-              
-              $sectioncounter++; // om sowieso een unieke ID te kunnen maken
-      				$section_title        = get_the_title( $p->ID );
-      				$section_description  = get_the_excerpt( $p->ID );
-
-              $title_id             = sanitize_title( $section_title . '-' . $sectioncounter );
-
-              echo '<section aria-labelledby="' . $title_id . '">';
-              echo get_the_post_thumbnail( $p->ID, 'projectfoto' );
-              echo '<h3 id="' . $title_id . '">' . sanitize_text_field( $section_title ) . '</h3>';
-              echo '<p>' . $section_description . '</p>';
-              if ( ! DISCIPL_IS_ONEPAGER ) {
-                
-                // het is geen one-pager, dus we mogen doorverwijzen naar het item
-                echo '<p class="read-more"><a href="' . get_permalink( $p->ID ) . '">' .  sprintf( __( 'Meer over %s', 'discipl' ), $section_title ) . '</a></p>';
-                
-              }
-              echo '</section>';
-
-            endforeach;
-
-            echo '</div>';  // .flex
-            
-          }
-          
-          echo '</div>';  // .wrap
-          echo '</section>';
-
-        }
-              
-      endwhile;
-      
-    endif;
-    
   }
-
 }
 
 
@@ -726,7 +732,9 @@ if (! function_exists( 'dovardump' ) ) {
 //========================================================================================================
 
 //* Change the footer text
-add_filter('genesis_footer_creds_text', 'discipl_frontend_add_footer_text');
+//add_filter('genesis_footer_creds_text', 'discipl_frontend_add_footer_text');
+add_filter('genesis_pre_get_option_footer_text', 'discipl_frontend_add_footer_text');
+
 
 function discipl_frontend_add_footer_text( $creds ) {
   
