@@ -1,0 +1,14 @@
+{
+  "name": "ictu/ictuwp-theme-discipl",
+  "type": "wordpress-theme",
+  "license": "GPL-3.0",
+  "description": "Theme voor Discipl.org",
+  "homepage": "https://discipl.org",
+  "authors": [
+    {
+      "name": "Paul van Buuren",
+      "email": "paul@wbvb.nl",
+      "homepage": "https://wbvb.nl"
+    }
+  ]
+}
