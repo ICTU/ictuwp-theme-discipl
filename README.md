@@ -21,7 +21,7 @@ De homepage (en andere pagina's) worden aangevuld met ACF-velden.
 1.0.6a - CSS voor breadcrumb; hover op menu aangepast.
 
 ## Version history
-* 1.0.6a - Genesis update. Teampagina-template verbeterd.
+* 1.0.6 - Genesis update. Teampagina-template verbeterd.
 * 1.0.5 - HTML-filter op tekst in blokken weggehaald.
 * 1.0.4 - single.php toegevoegd.
 * 1.0.3 - CSS voor breadcrumb; hover op menu aangepast.
